@@ -1,4 +1,9 @@
 import type { Service } from "./services";
+// Import batch data
+import { locationsBatch01 } from "../../data/batches/locations/batch-01";
+import { locationsBatch02 } from "../../data/batches/locations/batch-02";
+import { locationsBatch03 } from "../../data/batches/locations/batch-03";
+import { locationsBatch04 } from "../../data/batches/locations/batch-04";
 
 export type Location = {
   slug: string;
@@ -12,9 +17,26 @@ export type Location = {
     title: string;
     description: string;
   };
+  // Rich batch data fields
+  mainDescription?: string;
+  popularPaths?: Array<{
+    rank: number;
+    type: "service" | "propertyType";
+    slug: string;
+    name: string;
+    whyPopular: string;
+  }>;
+  exampleCapability?: {
+    disclaimer: string;
+    location: string;
+    situation: string;
+    ourApproach: string;
+    expectedOutcome: string;
+  };
+  layoutKey?: string;
 };
 
-export const locations: Location[] = [
+const baseLocations: Omit<Location, "mainDescription" | "popularPaths" | "exampleCapability" | "layoutKey">[] = [
   {
     slug: "center-city-philadelphia-pa",
     name: "Center City Philadelphia, PA",
@@ -506,4 +528,29 @@ export const locations: Location[] = [
     },
   },
 ];
+
+// Merge all batch data into locations
+const allLocationBatchData = {
+  ...locationsBatch01,
+  ...locationsBatch02,
+  ...locationsBatch03,
+  ...locationsBatch04,
+};
+
+// Merge batch data into locations array
+export const locations: Location[] = baseLocations.map((location) => {
+  const batchData = allLocationBatchData[location.slug as keyof typeof allLocationBatchData];
+  if (batchData) {
+    return {
+      ...location,
+      mainDescription: batchData.mainDescription,
+      popularPaths: batchData.popularPaths as Location["popularPaths"],
+      exampleCapability: batchData.exampleCapability,
+      layoutKey: batchData.layoutKey,
+      // Merge FAQs if batch has additional ones
+      faqs: batchData.faqs && batchData.faqs.length > 0 ? batchData.faqs : location.faqs,
+    };
+  }
+  return location as Location;
+});
 

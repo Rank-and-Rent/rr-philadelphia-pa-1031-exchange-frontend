@@ -2,8 +2,8 @@
 
 import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
-import { services } from "../lib/data/services";
-import { locations } from "../lib/data/locations";
+import { servicesData } from "../data/services";
+import { locationsData } from "../data/locations";
 import { PHONE_DISPLAY, PHONE_E164 } from "../lib/config/site";
 
 type MenuKey = "services" | "locations" | "tools" | null;
@@ -72,19 +72,19 @@ export function SiteHeader() {
 
   const featuredServices = useMemo(
     () =>
-      FEATURED_SERVICE_SLUGS.map((slug) => services.find((service) => service.slug === slug)).filter(
+      FEATURED_SERVICE_SLUGS.map((slug) => servicesData.find((service) => service.slug === slug)).filter(
         (service): service is NonNullable<typeof service> => Boolean(service)
       ),
     []
   );
 
-  const featuredLocations = useMemo(
-    () =>
-      FEATURED_LOCATION_SLUGS.map((slug) => locations.find((location) => location.slug === slug)).filter(
-        (location): location is NonNullable<typeof location> => Boolean(location)
-      ),
-    []
-  );
+  const featuredLocations = useMemo(() => {
+    const centerCity = locationsData.find((loc) => loc.slug === "center-city-philadelphia-pa");
+    const others = FEATURED_LOCATION_SLUGS.filter((slug) => slug !== "center-city-philadelphia-pa")
+      .map((slug) => locationsData.find((location) => location.slug === slug))
+      .filter((location): location is NonNullable<typeof location> => Boolean(location));
+    return centerCity ? [centerCity, ...others] : others;
+  }, []);
 
   const toggleMobile = () => setMobileOpen((prev) => !prev);
 
@@ -121,7 +121,7 @@ export function SiteHeader() {
                         className="block rounded-xl p-3 transition-colors hover:bg-panel"
                       >
                         <p className="font-semibold text-heading">{service.name}</p>
-                        <p className="mt-1 text-xs text-[#3F3F3F]">{service.shortDescription}</p>
+                        <p className="mt-1 text-xs text-[#3F3F3F]">{service.short}</p>
                       </Link>
                     ))}
                   </div>
@@ -161,7 +161,7 @@ export function SiteHeader() {
                         className="block rounded-xl p-3 transition-colors hover:bg-panel"
                       >
                         <p className="font-semibold text-heading">{location.name}</p>
-                        <p className="mt-1 text-xs text-[#3F3F3F]">{location.shortDescription}</p>
+                        {location.short ? <p className="mt-1 text-xs text-[#3F3F3F]">{location.short}</p> : null}
                       </Link>
                     ))}
                   </div>

@@ -1,3 +1,10 @@
+// Import batch data
+import { servicesBatch01 } from "../../data/batches/services/batch-01";
+import { servicesBatch02 } from "../../data/batches/services/batch-02";
+import { servicesBatch03 } from "../../data/batches/services/batch-03";
+import { servicesBatch04 } from "../../data/batches/services/batch-04";
+import { servicesBatch05 } from "../../data/batches/services/batch-05";
+
 export type Service = {
   slug: string;
   name: string;
@@ -11,9 +18,25 @@ export type Service = {
     title: string;
     description: string;
   };
+  // Rich batch data fields
+  mainDescription?: string;
+  inclusions?: string[];
+  commonSituations?: string[];
+  exampleCapability?: {
+    disclaimer: string;
+    serviceType: string;
+    location: string;
+    scope: string;
+    clientSituation: string;
+    ourApproach: string;
+    expectedOutcome: string;
+    contactCTA?: string;
+  };
+  layoutKey?: string;
+  complianceNote?: string;
 };
 
-export const services: Service[] = [
+const baseServices: Omit<Service, "mainDescription" | "inclusions" | "commonSituations" | "exampleCapability" | "layoutKey" | "complianceNote">[] = [
   {
     slug: "replacement-property-scouting-philadelphia",
     name: "Replacement Property Scouting Philadelphia",
@@ -1192,4 +1215,32 @@ export const services: Service[] = [
     },
   },
 ];
+
+// Merge all batch data into services
+const allBatchData = {
+  ...servicesBatch01,
+  ...servicesBatch02,
+  ...servicesBatch03,
+  ...servicesBatch04,
+  ...servicesBatch05,
+};
+
+// Merge batch data into services array
+export const services: Service[] = baseServices.map((service) => {
+  const batchData = allBatchData[service.slug as keyof typeof allBatchData];
+  if (batchData) {
+    return {
+      ...service,
+      mainDescription: batchData.mainDescription,
+      inclusions: batchData.inclusions,
+      commonSituations: batchData.commonSituations,
+      exampleCapability: batchData.exampleCapability,
+      layoutKey: batchData.layoutKey,
+      complianceNote: batchData.complianceNote,
+      // Merge FAQs if batch has additional ones
+      faqs: batchData.faqs && batchData.faqs.length > 0 ? batchData.faqs : service.faqs,
+    };
+  }
+  return service as Service;
+});
 

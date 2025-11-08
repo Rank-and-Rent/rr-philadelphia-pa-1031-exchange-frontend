@@ -65,11 +65,19 @@ export default async function LocationPage({ params }: LocationPageProps) {
         <div className="max-w-3xl space-y-4">
           <p className="text-xs font-semibold uppercase tracking-[0.2em] text-primary">Service Area</p>
           <h1 className="text-4xl font-semibold text-heading">{location.name}</h1>
-          {location.summary.map((paragraph) => (
-            <p key={paragraph} className="text-lg text-[#3F3F3F]">
-              {paragraph}
-            </p>
-          ))}
+          {/* Main Description from batch data or fallback to summary */}
+          {location.mainDescription ? (
+            <div
+              className="text-lg text-[#3F3F3F] prose prose-lg max-w-none"
+              dangerouslySetInnerHTML={{ __html: location.mainDescription }}
+            />
+          ) : (
+            location.summary.map((paragraph) => (
+              <p key={paragraph} className="text-lg text-[#3F3F3F]">
+                {paragraph}
+              </p>
+            ))
+          )}
         </div>
       </section>
       <section className="container space-y-16 bg-white py-16">
@@ -95,6 +103,38 @@ export default async function LocationPage({ params }: LocationPageProps) {
             </a>
           </aside>
         </div>
+        {/* Popular Paths from batch data */}
+        {location.popularPaths && location.popularPaths.length > 0 && (
+          <section className="space-y-6">
+            <h2 className="text-2xl font-semibold text-heading">Popular paths for this area.</h2>
+            <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+              {location.popularPaths
+                .sort((a, b) => a.rank - b.rank)
+                .map((path) => {
+                  const isService = path.type === "service";
+                  const href = isService ? `/services/${path.slug}` : `/property-types/${path.slug}`;
+                  return (
+                    <article key={`${path.type}-${path.slug}`} className="rounded-3xl border border-outline/15 bg-panel p-6 shadow-sm">
+                      <p className="text-xs font-semibold uppercase tracking-[0.18em] text-primary">
+                        {isService ? "Service" : "Property Type"}
+                      </p>
+                      <h3 className="mt-2 text-xl font-semibold text-heading">{path.name}</h3>
+                      <p className="mt-3 text-sm text-[#3F3F3F]">{path.whyPopular}</p>
+                      <div className="mt-4">
+                        <Link
+                          className="text-sm font-semibold text-primary underline underline-offset-4"
+                          href={href}
+                        >
+                          Learn more →
+                        </Link>
+                      </div>
+                    </article>
+                  );
+                })}
+            </div>
+          </section>
+        )}
+
         <section className="space-y-6">
           <h2 className="text-2xl font-semibold text-heading">Services aligned with this market.</h2>
           <div className="grid gap-6 md:grid-cols-2">
@@ -115,6 +155,32 @@ export default async function LocationPage({ params }: LocationPageProps) {
             ))}
           </div>
         </section>
+
+        {/* Example Capability */}
+        {location.exampleCapability && (
+          <section className="space-y-6">
+            <div className="rounded-3xl border border-outline/15 bg-panel p-6">
+              <p className="text-xs font-semibold uppercase tracking-[0.2em] text-primary mb-4">
+                {location.exampleCapability.disclaimer}
+              </p>
+              <h2 className="text-xl font-semibold text-heading mb-4">Example engagement.</h2>
+              <div className="space-y-3 text-sm text-[#3F3F3F]">
+                <div>
+                  <span className="font-semibold text-heading">Location:</span> {location.exampleCapability.location}
+                </div>
+                <div>
+                  <span className="font-semibold text-heading">Situation:</span> {location.exampleCapability.situation}
+                </div>
+                <div>
+                  <span className="font-semibold text-heading">Our Approach:</span> {location.exampleCapability.ourApproach}
+                </div>
+                <div>
+                  <span className="font-semibold text-heading">Expected Outcome:</span> {location.exampleCapability.expectedOutcome}
+                </div>
+              </div>
+            </div>
+          </section>
+        )}
         <section className="space-y-6">
           <h2 className="text-2xl font-semibold text-heading">Frequently asked questions.</h2>
           <div className="grid gap-4 lg:grid-cols-2">

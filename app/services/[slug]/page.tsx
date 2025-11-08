@@ -75,21 +75,91 @@ export default async function ServicePage({ params }: ServicePageProps) {
       <section className="container space-y-16 bg-white py-16">
         <div className="grid gap-10 lg:grid-cols-[1.2fr,0.8fr]">
           <article className="space-y-6">
-            <div className="space-y-4">
-              {service.overview.map((paragraph) => (
-                <p key={paragraph} className="text-sm text-[#3F3F3F]">
-                  {paragraph}
-                </p>
-              ))}
-            </div>
+            {/* Main Description from batch data or fallback to overview */}
+            {service.mainDescription ? (
+              <div
+                className="space-y-4 text-sm text-[#3F3F3F] prose prose-sm max-w-none"
+                dangerouslySetInnerHTML={{ __html: service.mainDescription }}
+              />
+            ) : (
+              <div className="space-y-4">
+                {service.overview.map((paragraph) => (
+                  <p key={paragraph} className="text-sm text-[#3F3F3F]">
+                    {paragraph}
+                  </p>
+                ))}
+              </div>
+            )}
+            
+            {/* Inclusions from batch data or fallback to deliverables */}
             <div className="rounded-3xl border border-outline/15 bg-panel p-6">
               <h2 className="text-xl font-semibold text-heading">What this includes.</h2>
               <ul className="mt-4 space-y-2 text-sm text-[#3F3F3F]">
-                {service.deliverables.map((item) => (
-                  <li key={item}>• {item}</li>
+                {(service.inclusions && service.inclusions.length > 0
+                  ? service.inclusions
+                  : service.deliverables
+                ).map((item, index) => (
+                  <li key={index}>• {item}</li>
                 ))}
               </ul>
             </div>
+
+            {/* Common Situations */}
+            {service.commonSituations && service.commonSituations.length > 0 && (
+              <div className="rounded-3xl border border-outline/15 bg-panel p-6">
+                <h2 className="text-xl font-semibold text-heading">Common situations.</h2>
+                <ul className="mt-4 space-y-3 text-sm text-[#3F3F3F]">
+                  {service.commonSituations.map((situation, index) => (
+                    <li key={index} className="flex items-start">
+                      <span className="mr-2 text-primary">•</span>
+                      <span>{situation}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
+
+            {/* Example Capability */}
+            {service.exampleCapability && (
+              <div className="rounded-3xl border border-outline/15 bg-panel p-6">
+                <p className="text-xs font-semibold uppercase tracking-[0.2em] text-primary mb-4">
+                  {service.exampleCapability.disclaimer}
+                </p>
+                <h2 className="text-xl font-semibold text-heading mb-4">Example engagement.</h2>
+                <div className="space-y-3 text-sm text-[#3F3F3F]">
+                  <div>
+                    <span className="font-semibold text-heading">Service:</span> {service.exampleCapability.serviceType}
+                  </div>
+                  <div>
+                    <span className="font-semibold text-heading">Location:</span> {service.exampleCapability.location}
+                  </div>
+                  <div>
+                    <span className="font-semibold text-heading">Scope:</span> {service.exampleCapability.scope}
+                  </div>
+                  <div>
+                    <span className="font-semibold text-heading">Client Situation:</span> {service.exampleCapability.clientSituation}
+                  </div>
+                  <div>
+                    <span className="font-semibold text-heading">Our Approach:</span> {service.exampleCapability.ourApproach}
+                  </div>
+                  <div>
+                    <span className="font-semibold text-heading">Expected Outcome:</span> {service.exampleCapability.expectedOutcome}
+                  </div>
+                  {service.exampleCapability.contactCTA && (
+                    <div className="mt-4 pt-4 border-t border-outline/15">
+                      <p className="text-sm text-[#3F3F3F]">{service.exampleCapability.contactCTA}</p>
+                    </div>
+                  )}
+                </div>
+              </div>
+            )}
+
+            {/* Compliance Note */}
+            {service.complianceNote && (
+              <div className="rounded-3xl border border-outline/15 bg-panel p-4">
+                <p className="text-xs text-[#3F3F3F] italic">{service.complianceNote}</p>
+              </div>
+            )}
           </article>
           <aside className="space-y-8">
             <IdentificationRulesExplainer />
