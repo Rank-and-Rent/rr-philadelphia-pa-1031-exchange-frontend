@@ -1,0 +1,16 @@
+{
+  "company": "1031 Exchange Philadelphia",
+  "phone": "",
+  "phoneDigits": "",
+  "mainCity": "Philadelphia",
+  "state": "PA",
+  "services": [],
+  "servicesNav": [],
+  "locationsNav": [],
+  "extraLinks": [
+    {
+      "label": "Contact",
+      "href": "/contact"
+    }
+  ]
+}
