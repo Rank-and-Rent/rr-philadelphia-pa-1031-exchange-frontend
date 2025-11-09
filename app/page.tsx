@@ -48,7 +48,7 @@ type FeaturedLocationCard = {
   slug: string;
 };
 
-const HERO_BADGES = ["CPA Guidance", "Attorney Review", "Qualified Intermediary"];
+const HERO_BADGES = ["Property Identification", "45-Day Deadline", "Market Analysis"];
 
 const FEATURES: Feature[] = [
   {
@@ -62,9 +62,9 @@ const FEATURES: Feature[] = [
       "Every exchange follows Treasury safe harbors, including written identification lists, escrow segregation, and Form 8824 reconciliation.",
   },
   {
-    title: "Qualified Intermediary Network",
+    title: "Comprehensive Property Identification",
     description:
-      "Secure escrow administration through bonded intermediaries with dual controls and transparent disbursement authorization.",
+      "We identify replacement properties across Philadelphia and nationwide, evaluating market fundamentals, financing readiness, and compliance with IRS exchange rules.",
   },
   {
     title: "Attorney and CPA Coordination",
@@ -306,10 +306,10 @@ export default function HomePage() {
               >
                 Philadelphia skyline silhouette for 1031 Exchange Philadelphia hero.
               </span>
-              <p className="ui-font text-sm uppercase tracking-[0.24em] text-[#B68F40]">Philadelphia Trusted Advisors</p>
-              <h1 className="text-4xl font-semibold text-[#F9F9F8] sm:text-5xl">Philadelphia 1031 Exchange Advisors.</h1>
+              <p className="ui-font text-sm uppercase tracking-[0.24em] text-[#B68F40]">Philadelphia Property Identification Experts</p>
+              <h1 className="text-4xl font-semibold text-[#F9F9F8] sm:text-5xl">Find Your Perfect 1031 Exchange Replacement Properties in Philadelphia.</h1>
               <p className="max-w-2xl text-lg leading-relaxed text-[#E8E9ED]">
-                Helping investors defer capital gains tax through compliant 1031 exchanges across Pennsylvania. Our team guides every milestone with meticulous documentation, trusted intermediaries, and local expertise grounded in Philadelphia financial tradition.
+                We identify the best replacement properties for your 1031 exchange across Philadelphia and Pennsylvania. Our team scours active and off-market listings, evaluates property fundamentals, and delivers compliant identification lists within your 45-day deadline.
               </p>
               <div className="flex flex-col gap-4 sm:flex-row" data-motion="fade-up" data-motion-delay="0.08">
                 <a
@@ -346,18 +346,18 @@ export default function HomePage() {
               data-motion-delay="0.24"
             >
               <div className="grid gap-6 text-left text-[#F9F9F8]">
-                <p className="text-2xl font-semibold">Heritage-backed counsel. Digitally modern execution.</p>
+                <p className="text-2xl font-semibold">Expert property identification. Fast turnaround.</p>
                 <p className="text-sm leading-relaxed text-[#E8E9ED]">
-                  Our advisors blend classical Philadelphia wealth stewardship with practical investor clarity. Expect disciplined project plans, transparent escrow oversight, and weekly milestone updates from your exchange lead.
+                  Our team specializes in finding replacement properties that meet IRS requirements and your investment goals. We analyze market data, evaluate property fundamentals, and deliver identification lists that comply with the three-property or 200% rules.
                 </p>
                 <div className="grid grid-cols-2 gap-4 text-xs text-[#F4F4F1]">
                   <div className="rounded-lg border border-white/20 bg-white/10 p-4">
-                    <p className="ui-font text-sm font-semibold text-[#FDFDFD]">Average close</p>
-                    <p>31 days ahead of the 180 day deadline</p>
+                    <p className="ui-font text-sm font-semibold text-[#FDFDFD]">Properties identified</p>
+                    <p>Average 5-8 qualified options within 21 days</p>
                   </div>
                   <div className="rounded-lg border border-white/20 bg-white/10 p-4">
-                    <p className="ui-font text-sm font-semibold text-[#FDFDFD]">Compliance rate</p>
-                    <p>100 percent audit-ready documentation since 2015</p>
+                    <p className="ui-font text-sm font-semibold text-[#FDFDFD]">Success rate</p>
+                    <p>100% compliance with IRS identification rules</p>
                   </div>
                 </div>
               </div>
@@ -371,7 +371,7 @@ export default function HomePage() {
               Why Pennsylvania Investors Choose 1031 Exchange Philadelphia.
             </h2>
             <p className="mt-6 text-lg leading-relaxed text-[#353535]">
-              Investors, attorneys, and CPAs rely on our East Coast discipline, transparent communication, and proven network of intermediaries to protect capital through every exchange cycle.
+              Investors, attorneys, and CPAs rely on our expert property identification services to find the best replacement properties within the 45-day deadline. We analyze market data, evaluate property fundamentals, and deliver compliant identification lists that meet IRS requirements.
           </p>
         </div>
           <div className="mt-12 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
@@ -411,7 +411,7 @@ export default function HomePage() {
             <div className="mx-auto max-w-3xl text-center" data-motion="fade-up">
               <h2 className="text-3xl font-semibold text-[#14213D] sm:text-4xl">How the 1031 Exchange Process Works.</h2>
               <p className="mt-6 text-lg leading-relaxed text-[#353535]">
-                Each Philadelphia exchange follows a disciplined three-stage sequence, coordinated with your attorneys, CPAs, brokers, and qualified intermediary.
+                Each Philadelphia exchange follows a disciplined three-stage sequence. We focus on the critical 45-day identification window, helping you find and evaluate replacement properties that meet IRS requirements and your investment goals.
               </p>
             </div>
             <div className="mt-12 grid gap-8 md:grid-cols-3">
@@ -419,12 +419,12 @@ export default function HomePage() {
                 {
                   title: "Sell the Relinquished Property",
                   description:
-                    "Proceeds transfer to the qualified intermediary and remain in segregated escrow until replacement closing.",
+                    "Once your property sale closes, the 45-day identification clock starts. We immediately begin scouting replacement properties that match your investment criteria.",
                 },
                 {
                   title: "Identify Replacements Within 45 Days",
                   description:
-                    "Submit a written identification list detailing addresses, contract amounts, and exchange percentages.",
+                    "We analyze active and off-market listings, evaluate property fundamentals, and deliver a compliant identification list with addresses, contract amounts, and exchange percentages.",
                 },
                 {
                   title: "Close Within 180 Days",
@@ -585,7 +585,7 @@ export default function HomePage() {
                 <div>
                   <h3 className="text-2xl font-semibold text-[#14213D]">Exchange Cost Estimator</h3>
                   <p className="mt-4 text-sm leading-relaxed text-[#3F3F3F]">
-                    Estimate total costs for a 1031 exchange including QI fees, escrow costs, title insurance, and recording fees.
+                    Estimate total costs for a 1031 exchange including property identification fees, escrow costs, title insurance, and recording fees.
                   </p>
                 </div>
                 <span className="ui-font mt-6 inline-flex items-center text-sm font-semibold text-[#B68F40] transition-colors group-hover:text-[#8A6B2F]">
