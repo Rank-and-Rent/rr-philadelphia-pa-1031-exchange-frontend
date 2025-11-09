@@ -281,9 +281,22 @@ export default function HomePage() {
   return (
     <>
       <main className="bg-[#F9F9F8] text-[#1B1B1B]" id="main-content">
-        <header className="relative isolate overflow-hidden bg-gradient-to-br from-[#14213D] via-[#1D2747] to-[#F9F9F8] text-[#F9F9F8]">
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(255,255,255,0.18),rgba(20,33,61,0.05))]" />
-          <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(135deg,rgba(20,33,61,0.35),transparent)] mix-blend-soft-light" />
+        <header className="relative isolate overflow-hidden text-[#F9F9F8]">
+          {/* Background Image */}
+          <div className="absolute inset-0">
+            <Image
+              src="/1031-exchange-philadelphia.jpg"
+              alt=""
+              fill
+              className="object-cover"
+              priority
+              sizes="100vw"
+            />
+            {/* Dark overlay for text readability */}
+            <div className="absolute inset-0 bg-[#14213D]/70" />
+            {/* Gradient overlay */}
+            <div className="absolute inset-0 bg-gradient-to-br from-[#14213D]/80 via-[#1D2747]/60 to-[#14213D]/70" />
+          </div>
           <div className="relative mx-auto flex max-w-6xl flex-col gap-16 px-6 py-24 sm:px-8 lg:flex-row lg:items-center lg:py-32">
             <div className="max-w-3xl space-y-8" data-motion="fade-up">
               <span
