@@ -13,7 +13,7 @@ import {
   HUBSPOT_FORM_ID,
   HUBSPOT_PORTAL_ID,
 } from "../lib/config/site";
-import { organizationSchema } from "../lib/schema";
+import { organizationSchema, localBusinessSchema } from "../lib/schema";
 import { SiteHeader } from "../components/site-header";
 import { SiteFooter } from "../components/site-footer";
 import { StickyCTA } from "../components/sticky-cta";
@@ -47,6 +47,26 @@ export const metadata: Metadata = {
   },
   description:
     "Trusted 1031 exchange advisors helping Philadelphia investors defer capital gains through compliant processes, identification strategy, and deadline discipline.",
+  keywords: [
+    "1031 exchange",
+    "1031 exchange Philadelphia",
+    "1031 exchange Pennsylvania",
+    "like-kind exchange",
+    "qualified intermediary",
+    "1031 exchange advisor",
+    "Philadelphia 1031 exchange",
+    "PA 1031 exchange",
+    "tax deferred exchange",
+    "investment property exchange",
+  ],
+  authors: [{ name: SITE_NAME }],
+  creator: SITE_NAME,
+  publisher: SITE_NAME,
+  formatDetection: {
+    email: false,
+    address: false,
+    telephone: false,
+  },
   icons: {
     icon: [
       { url: "/favicon/favicon-16x16.png", sizes: "16x16", type: "image/png" },
@@ -62,12 +82,25 @@ export const metadata: Metadata = {
     ],
   },
   manifest: "/favicon/site.webmanifest",
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
+  },
   openGraph: {
     title: `${SITE_NAME} | Qualified Intermediary Network Pennsylvania`,
     description:
       "Trusted 1031 exchange advisors helping Philadelphia investors defer capital gains through compliant processes, identification strategy, and deadline discipline.",
     url: SITE_URL,
     siteName: SITE_NAME,
+    locale: "en_US",
+    type: "website",
     images: [
       {
         url: OG_IMAGE_URL,
@@ -76,7 +109,6 @@ export const metadata: Metadata = {
         alt: `${SITE_NAME} hero imagery`,
       },
     ],
-    type: "website",
   },
   twitter: {
     card: "summary_large_image",
@@ -84,9 +116,13 @@ export const metadata: Metadata = {
     description:
       "Trusted 1031 exchange advisors helping Philadelphia investors defer capital gains through compliant processes, identification strategy, and deadline discipline.",
     images: [OG_IMAGE_URL],
+    creator: "@1031philly",
   },
   alternates: {
     canonical: SITE_URL,
+  },
+  verification: {
+    // Add verification codes here when available
   },
 };
 
@@ -119,6 +155,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         ) : null}
         <Script id="organization-schema" type="application/ld+json" strategy="afterInteractive">
           {JSON.stringify(organizationSchema)}
+        </Script>
+        <Script id="local-business-schema" type="application/ld+json" strategy="afterInteractive">
+          {JSON.stringify(localBusinessSchema)}
         </Script>
       </body>
     </html>

@@ -30,7 +30,43 @@ export const organizationSchema = {
     postalCode: "19104",
     addressCountry: "US",
   },
-  areaServed: ["Philadelphia County, PA", "Bucks County, PA", "Montgomery County, PA", "Chester County, PA", "Delaware County, PA"],
+  areaServed: [
+    {
+      "@type": "City",
+      name: "Philadelphia",
+      addressRegion: "PA",
+    },
+    {
+      "@type": "County",
+      name: "Philadelphia County",
+      addressRegion: "PA",
+    },
+    {
+      "@type": "County",
+      name: "Bucks County",
+      addressRegion: "PA",
+    },
+    {
+      "@type": "County",
+      name: "Montgomery County",
+      addressRegion: "PA",
+    },
+    {
+      "@type": "County",
+      name: "Chester County",
+      addressRegion: "PA",
+    },
+    {
+      "@type": "County",
+      name: "Delaware County",
+      addressRegion: "PA",
+    },
+  ],
+  priceRange: "$$",
+  paymentAccepted: "Cash, Check, Credit Card, Wire Transfer",
+  currenciesAccepted: "USD",
+  serviceType: "1031 Exchange Advisory Services",
+  description: "Trusted 1031 exchange advisors helping Philadelphia investors defer capital gains through compliant processes, identification strategy, and deadline discipline.",
 };
 
 export const contactPointSchema = {
@@ -41,6 +77,48 @@ export const contactPointSchema = {
   email: CONTACT_EMAIL,
   areaServed: "US-PA",
   availableLanguage: ["English"],
+  hoursAvailable: {
+    "@type": "OpeningHoursSpecification",
+    dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+    opens: "08:30",
+    closes: "18:00",
+    timeZone: "America/New_York",
+  },
+};
+
+export const localBusinessSchema = {
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness",
+  "@id": `${SITE_URL}#organization`,
+  name: SITE_NAME,
+  image: LOGO_URL,
+  logo: LOGO_URL,
+  url: SITE_URL,
+  telephone: PHONE_E164,
+  email: CONTACT_EMAIL,
+  address: {
+    "@type": "PostalAddress",
+    streetAddress: "3151 Market St",
+    addressLocality: "Philadelphia",
+    addressRegion: "PA",
+    postalCode: "19104",
+    addressCountry: "US",
+  },
+  geo: {
+    "@type": "GeoCoordinates",
+    latitude: "39.9526",
+    longitude: "-75.1652",
+  },
+  openingHoursSpecification: {
+    "@type": "OpeningHoursSpecification",
+    dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+    opens: "08:30",
+    closes: "18:00",
+    timeZone: "America/New_York",
+  },
+  priceRange: "$$",
+  paymentAccepted: "Cash, Check, Credit Card, Wire Transfer",
+  currenciesAccepted: "USD",
 };
 
 export const createBreadcrumbSchema = (items: Array<{ name: string; url: string }>) => ({
@@ -59,17 +137,59 @@ export const createServiceSchema = (service: Service) => ({
   "@type": "Service",
   name: service.name,
   description: service.shortDescription,
+  serviceType: "1031 Exchange Advisory Service",
   areaServed: [
-    "Philadelphia, PA",
-    "Bucks County, PA",
-    "Montgomery County, PA",
-    "Chester County, PA",
-    "Delaware County, PA",
+    {
+      "@type": "City",
+      name: "Philadelphia",
+      addressRegion: "PA",
+    },
+    {
+      "@type": "County",
+      name: "Philadelphia County",
+      addressRegion: "PA",
+    },
+    {
+      "@type": "County",
+      name: "Bucks County",
+      addressRegion: "PA",
+    },
+    {
+      "@type": "County",
+      name: "Montgomery County",
+      addressRegion: "PA",
+    },
+    {
+      "@type": "County",
+      name: "Chester County",
+      addressRegion: "PA",
+    },
+    {
+      "@type": "County",
+      name: "Delaware County",
+      addressRegion: "PA",
+    },
   ],
   provider: {
     "@type": "ProfessionalService",
     name: SITE_NAME,
     url: SITE_URL,
+    logo: LOGO_URL,
+    telephone: PHONE_E164,
+    email: CONTACT_EMAIL,
+    address: {
+      "@type": "PostalAddress",
+      streetAddress: "3151 Market St",
+      addressLocality: "Philadelphia",
+      addressRegion: "PA",
+      postalCode: "19104",
+      addressCountry: "US",
+    },
+  },
+  offers: {
+    "@type": "Offer",
+    priceCurrency: "USD",
+    availability: "https://schema.org/InStock",
   },
 });
 
