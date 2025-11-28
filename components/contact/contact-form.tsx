@@ -23,6 +23,9 @@ export function ContactForm({ variant = "default" }: ContactFormProps) {
     email: "",
     phone: "",
     projectType: "",
+    property: "",
+    estimatedCloseDate: "",
+    city: "",
     timeline: "",
     details: "",
   });
@@ -153,6 +156,9 @@ export function ContactForm({ variant = "default" }: ContactFormProps) {
         email: "",
         phone: "",
         projectType: "",
+        property: "",
+        estimatedCloseDate: "",
+        city: "",
         timeline: "",
         details: "",
       });
@@ -264,6 +270,37 @@ export function ContactForm({ variant = "default" }: ContactFormProps) {
           </datalist>
           {errors.projectType ? <span className={errorClassName}>{errors.projectType}</span> : null}
         </label>
+        <label className={labelClassName}>
+          Property Being Sold
+          <input
+            type="text"
+            value={formData.property}
+            onChange={updateField("property")}
+            placeholder="Include property type, location, and estimated value (optional)"
+            className={inputClassName(false)}
+          />
+        </label>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <label className={labelClassName}>
+            Estimated Close Date
+            <input
+              type="date"
+              value={formData.estimatedCloseDate}
+              onChange={updateField("estimatedCloseDate")}
+              className={inputClassName(false)}
+            />
+          </label>
+          <label className={labelClassName}>
+            City
+            <input
+              type="text"
+              value={formData.city}
+              onChange={updateField("city")}
+              placeholder="Primary metro or submarket (optional)"
+              className={inputClassName(false)}
+            />
+          </label>
+        </div>
         <label className={labelClassName}>
           Target timeline
           <input
