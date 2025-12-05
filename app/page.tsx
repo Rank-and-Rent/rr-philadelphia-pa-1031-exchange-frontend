@@ -297,7 +297,7 @@ export default function HomePage() {
             {/* Gradient overlay */}
             <div className="absolute inset-0 bg-gradient-to-br from-[#14213D]/80 via-[#1D2747]/60 to-[#14213D]/70" />
           </div>
-          <div className="relative mx-auto flex max-w-6xl flex-col gap-16 px-6 py-24 sm:px-8 lg:flex-row lg:items-center lg:py-32">
+          <div className="relative mx-auto max-w-6xl px-6 py-24 sm:px-8 lg:py-32">
             <div className="max-w-3xl space-y-8" data-motion="fade-up">
               <span
                 aria-label="Philadelphia skyline silhouette for 1031 Exchange Philadelphia hero."
@@ -338,28 +338,6 @@ export default function HomePage() {
                     </li>
                   ))}
                 </ul>
-              </div>
-            </div>
-            <div
-              className="relative w-full max-w-xl rounded-3xl border border-white/10 bg-white/5 p-8 shadow-xl lg:ml-auto"
-              data-motion="fade-up"
-              data-motion-delay="0.24"
-            >
-              <div className="grid gap-6 text-left text-[#F9F9F8]">
-                <p className="text-2xl font-semibold">Expert property identification. Fast turnaround.</p>
-                <p className="text-sm leading-relaxed text-[#E8E9ED]">
-                  Our team specializes in finding replacement properties that meet IRS requirements and your investment goals. We analyze market data, evaluate property fundamentals, and deliver identification lists that comply with the three-property or 200% rules.
-                </p>
-                <div className="grid grid-cols-2 gap-4 text-xs text-[#F4F4F1]">
-                  <div className="rounded-lg border border-white/20 bg-white/10 p-4">
-                    <p className="ui-font text-sm font-semibold text-[#FDFDFD]">Properties identified</p>
-                    <p>Average 5-8 qualified options within 21 days</p>
-                  </div>
-                  <div className="rounded-lg border border-white/20 bg-white/10 p-4">
-                    <p className="ui-font text-sm font-semibold text-[#FDFDFD]">Success rate</p>
-                    <p>100% compliance with IRS identification rules</p>
-                  </div>
-                </div>
               </div>
             </div>
           </div>
