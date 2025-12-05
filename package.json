@@ -11,6 +11,7 @@
     "test:e2e": "playwright test"
   },
   "dependencies": {
+    "@heroicons/react": "^2.2.0",
     "@portabletext/react": "^5.0.0",
     "@portabletext/types": "^3.0.0",
     "@sanity/client": "^7.12.1",

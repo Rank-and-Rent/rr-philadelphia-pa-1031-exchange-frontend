@@ -17,19 +17,6 @@ const OFFICE_ADDRESS = "3151 Market St";
 const OFFICE_CITY_STATE_ZIP = "Philadelphia, PA 19104";
 const OFFICE_ADDRESS_FULL = "3151 Market St, Philadelphia, PA 19104";
 
-// Extend window type for Turnstile
-declare global {
-  interface Window {
-    _turnstileLoaded?: boolean;
-    _lastTurnstileToken?: string;
-    turnstile?: {
-      render: (element: HTMLElement, options: Record<string, unknown>) => string;
-      execute: (widgetId: string, options?: Record<string, unknown>) => Promise<string>;
-      reset: (widgetId: string) => void;
-    };
-  }
-}
-
 // Utility to load Turnstile script exactly once
 function loadTurnstile(): Promise<void> {
   if (typeof window === "undefined") return Promise.resolve();

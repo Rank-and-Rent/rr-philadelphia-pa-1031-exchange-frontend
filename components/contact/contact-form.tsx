@@ -126,7 +126,7 @@ export function ContactForm({ variant = "default" }: ContactFormProps) {
       formDataToSend.append("timeline", formData.timeline);
       formDataToSend.append("details", formData.details);
 
-      if (isTurnstileEnabled() && turnstileWidgetIdRef.current && window.turnstile) {
+      if (isTurnstileEnabled() && turnstileWidgetIdRef.current && window.turnstile && window.turnstile.getResponse) {
         const token = window.turnstile.getResponse(turnstileWidgetIdRef.current);
         if (!token) {
           setStatus("Please complete the security verification.");
@@ -376,13 +376,4 @@ export function ContactForm({ variant = "default" }: ContactFormProps) {
   );
 }
 
-declare global {
-  interface Window {
-    turnstile?: {
-      render: (element: HTMLElement | null, options: { sitekey: string; callback?: () => void; "error-callback"?: () => void }) => string;
-      getResponse: (widgetId: string) => string | undefined;
-      reset: (widgetId: string) => void;
-    };
-  }
-}
 
