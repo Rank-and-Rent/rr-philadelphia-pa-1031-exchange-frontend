@@ -20,10 +20,18 @@ const config: Config = {
         secondaryfg: tokens.secondaryFg,
         outline: tokens.outline,
         panel: tokens.panel,
+        olive: {
+          DEFAULT: "#5D5838",
+          light: "#7A7654",
+          dark: "#454326",
+        },
       },
       borderRadius: {
         xl: "1rem",
         "2xl": "1.25rem",
+      },
+      letterSpacing: {
+        luxury: "0.2em",
       },
     },
   },

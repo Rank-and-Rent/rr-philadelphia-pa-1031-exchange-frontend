@@ -45,56 +45,59 @@ export function IdentificationLetterHelper() {
     ].join("\n");
   }, [exchangeId, properties, qiName, taxpayer, today]);
 
+  const inputClasses = "mt-2 w-full border border-[#5D5838]/20 px-4 py-3 text-sm font-normal text-[#1B1B1B] outline-none transition focus:border-[#5D5838]";
+
   return (
-    <section className="rounded-3xl border border-outline/15 bg-white p-6 shadow-sm">
-      <h3 className="text-xl font-semibold text-heading">Identification Letter Helper</h3>
-      <p className="mt-2 text-sm text-[#3F3F3F]">
+    <section className="border border-[#5D5838]/20 bg-white p-8">
+      <p className="text-xs font-medium uppercase tracking-[0.15em] text-[#5D5838]">Document Builder</p>
+      <h3 className="mt-3 text-xl font-normal tracking-wide text-[#5D5838]">IDENTIFICATION LETTER HELPER</h3>
+      <p className="mt-4 text-sm leading-relaxed text-[#3F3F3F]">
         Draft a compliant identification letter for delivery to your qualified intermediary. Replace placeholders with final legal descriptions and execution details.
       </p>
-      <div className="mt-4 grid gap-4 md:grid-cols-2">
-        <label className="flex flex-col text-sm font-semibold text-heading">
+      <div className="mt-6 grid gap-6 md:grid-cols-2">
+        <label className="flex flex-col text-sm font-medium text-[#5D5838]">
           Taxpayer name
           <input
             type="text"
             value={taxpayer}
             onChange={(event) => setTaxpayer(event.target.value)}
-            className="mt-2 rounded-xl border border-outline/20 px-3 py-2 text-sm font-normal text-[#1B1B1B] outline-none transition focus:border-primary focus:ring-2 focus:ring-primary/20"
+            className={inputClasses}
             placeholder="Investor or entity name"
           />
         </label>
-        <label className="flex flex-col text-sm font-semibold text-heading">
+        <label className="flex flex-col text-sm font-medium text-[#5D5838]">
           Qualified intermediary
           <input
             type="text"
             value={qiName}
             onChange={(event) => setQiName(event.target.value)}
-            className="mt-2 rounded-xl border border-outline/20 px-3 py-2 text-sm font-normal text-[#1B1B1B] outline-none transition focus:border-primary focus:ring-2 focus:ring-primary/20"
+            className={inputClasses}
             placeholder="QI company"
           />
         </label>
-        <label className="flex flex-col text-sm font-semibold text-heading">
+        <label className="flex flex-col text-sm font-medium text-[#5D5838]">
           Exchange ID or reference
           <input
             type="text"
             value={exchangeId}
             onChange={(event) => setExchangeId(event.target.value)}
-            className="mt-2 rounded-xl border border-outline/20 px-3 py-2 text-sm font-normal text-[#1B1B1B] outline-none transition focus:border-primary focus:ring-2 focus:ring-primary/20"
+            className={inputClasses}
             placeholder="QI reference number"
           />
         </label>
-        <label className="flex flex-col text-sm font-semibold text-heading md:col-span-2">
+        <label className="flex flex-col text-sm font-medium text-[#5D5838] md:col-span-2">
           Replacement properties
           <textarea
             value={properties}
             onChange={(event) => setProperties(event.target.value)}
             rows={5}
-            className="mt-2 w-full rounded-xl border border-outline/20 px-3 py-2 text-sm font-normal text-[#1B1B1B] outline-none transition focus:border-primary focus:ring-2 focus:ring-primary/20"
+            className={inputClasses}
             placeholder="1. Property description, address, estimated value"
           />
         </label>
       </div>
-      <div className="mt-4">
-        <label htmlFor="identification-letter-output" className="text-xs font-semibold uppercase tracking-[0.2em] text-primary">
+      <div className="mt-6">
+        <label htmlFor="identification-letter-output" className="text-xs font-medium uppercase tracking-[0.15em] text-[#5D5838]">
           Draft letter
         </label>
         <textarea
@@ -102,10 +105,9 @@ export function IdentificationLetterHelper() {
           readOnly
           value={letter}
           rows={10}
-          className="mt-2 w-full rounded-xl border border-outline/20 bg-panel px-3 py-2 text-sm font-mono text-[#1B1B1B]"
+          className="mt-2 w-full border border-[#5D5838]/10 bg-[#F8F7F4] px-4 py-3 text-sm font-mono text-[#1B1B1B]"
         />
       </div>
     </section>
   );
 }
-

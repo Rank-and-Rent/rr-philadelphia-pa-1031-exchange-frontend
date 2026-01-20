@@ -50,18 +50,18 @@ export function HomeLocationGrid({ featuredSlugs, locations, featuredCards }: Ho
       />
       {query ? (
         hasResults ? (
-          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+          <div className="grid gap-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
             {filtered.map((location) => {
               const imageBasePath = getLocationImageBasePath(location.slug);
               return (
-                <article key={location.slug} className="group overflow-hidden rounded-3xl border border-outline/15 bg-panel text-sm text-[#3F3F3F] transition-shadow hover:shadow-lg">
+                <article key={location.slug} className="group overflow-hidden bg-white text-center">
                   {imageBasePath && (
-                    <div className="relative h-48 w-full overflow-hidden">
+                    <div className="relative aspect-[4/3] w-full overflow-hidden">
                       <Image
                         src={`${imageBasePath}.webp`}
                         alt={location.name}
                         fill
-                        className="object-cover transition-transform duration-300 group-hover:scale-105"
+                        className="object-cover transition-transform duration-500 group-hover:scale-110"
                         sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, (max-width: 1280px) 33vw, 25vw"
                         onError={(e) => {
                           const target = e.target as HTMLImageElement;
@@ -77,17 +77,15 @@ export function HomeLocationGrid({ featuredSlugs, locations, featuredCards }: Ho
                       />
                     </div>
                   )}
-                  <div className="p-5 lg:p-6">
-                    <p className="text-xs font-semibold uppercase tracking-[0.18em] text-primary">Service area</p>
-                    <h3 className="mt-2 text-lg font-semibold text-heading">{location.name}</h3>
-                    <p className="mt-2 text-sm leading-relaxed text-[#3F3F3F]">{location.shortDescription}</p>
-                    <div className="mt-4 flex items-center justify-between gap-4 text-xs font-semibold text-primary">
-                      <Link href={`/locations/${location.slug}`} className="underline underline-offset-4">
-                        View location
+                  <div className="py-4">
+                    <h3 className="text-sm font-medium uppercase tracking-[0.15em] text-[#5D5838]">{location.name}</h3>
+                    <div className="mt-3 flex items-center justify-center gap-4 text-xs font-medium uppercase tracking-[0.1em] text-[#5D5838]">
+                      <Link href={`/locations/${location.slug}`} className="underline underline-offset-4 hover:text-[#7A7654]">
+                        View
                       </Link>
                       <Link
                         href={`/contact?projectType=${buildPrefillQuery(location.name)}#contact-form`}
-                        className="underline underline-offset-4"
+                        className="underline underline-offset-4 hover:text-[#7A7654]"
                       >
                         Contact
                       </Link>
@@ -98,32 +96,36 @@ export function HomeLocationGrid({ featuredSlugs, locations, featuredCards }: Ho
             })}
           </div>
         ) : (
-          <div className="rounded-3xl border border-primary/20 bg-primary/5 p-6 text-sm text-[#1B1B1B]">
-            <p className="font-semibold text-heading">We can help with "{query}".</p>
-            <p className="mt-2">
+          <div className="border border-[#5D5838]/20 bg-[#F8F7F4] p-8 text-sm text-[#1B1B1B]">
+            <p className="font-semibold text-[#5D5838]">We can help with &ldquo;{query}&rdquo;.</p>
+            <p className="mt-2 text-[#3F3F3F]">
               Tell us which jurisdiction you are targeting and we will assign the appropriate Pennsylvania exchange advisor.
             </p>
             <Link
               href={`/contact?projectType=${buildPrefillQuery(query || "Other location")}#lead-form`}
-              className="mt-4 inline-flex rounded-full bg-primary px-5 py-2 text-sm font-semibold text-white transition-colors hover:bg-[#0f1c33]"
+              className="mt-6 inline-flex bg-[#5D5838] px-6 py-3 text-xs font-medium uppercase tracking-[0.1em] text-white transition-colors hover:bg-[#454326]"
             >
               Contact advisor
             </Link>
           </div>
         )
       ) : (
-        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+        <div className="grid gap-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
           {featuredCards.map((location) => {
             const imageBasePath = getLocationImageBasePath(location.slug);
             return (
-              <article key={location.slug} className="group overflow-hidden rounded-3xl border border-outline/15 bg-panel text-sm text-[#3F3F3F] transition-shadow hover:shadow-lg">
+              <Link
+                key={location.slug}
+                href={`/locations/${location.slug}`}
+                className="group overflow-hidden bg-white text-center"
+              >
                 {imageBasePath && (
-                  <div className="relative h-48 w-full overflow-hidden">
+                  <div className="relative aspect-[4/3] w-full overflow-hidden">
                     <Image
                       src={`${imageBasePath}.webp`}
                       alt={location.name}
                       fill
-                      className="object-cover transition-transform duration-300 group-hover:scale-105"
+                      className="object-cover transition-transform duration-500 group-hover:scale-110"
                       sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, (max-width: 1280px) 33vw, 25vw"
                       onError={(e) => {
                         const target = e.target as HTMLImageElement;
@@ -139,23 +141,10 @@ export function HomeLocationGrid({ featuredSlugs, locations, featuredCards }: Ho
                     />
                   </div>
                 )}
-                <div className="p-5 lg:p-6">
-                  <p className="text-xs font-semibold uppercase tracking-[0.18em] text-primary">Service area</p>
-                  <h3 className="mt-2 text-lg font-semibold text-heading">{location.name}</h3>
-                  <p className="mt-2 text-sm leading-relaxed text-[#3F3F3F]">{location.description}</p>
-                  <div className="mt-4 flex items-center justify-between gap-4 text-xs font-semibold text-primary">
-                    <Link href={`/locations/${location.slug}`} className="underline underline-offset-4">
-                      View location
-                    </Link>
-                    <Link
-                      href={`/contact?projectType=${buildPrefillQuery(location.name)}#contact-form`}
-                      className="underline underline-offset-4"
-                    >
-                      Contact
-                    </Link>
-                  </div>
+                <div className="py-4">
+                  <h3 className="text-sm font-medium uppercase tracking-[0.15em] text-[#5D5838]">{location.name}</h3>
                 </div>
-              </article>
+              </Link>
             );
           })}
         </div>
@@ -163,4 +152,3 @@ export function HomeLocationGrid({ featuredSlugs, locations, featuredCards }: Ho
     </div>
   );
 }
-

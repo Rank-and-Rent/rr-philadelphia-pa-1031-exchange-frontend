@@ -24,32 +24,32 @@ export function TimelineTracker() {
   }, [closeDate]);
 
   return (
-    <section className="rounded-3xl border border-outline/15 bg-white p-6 shadow-sm">
-      <h3 className="text-xl font-semibold text-heading">Exchange Timeline Tracker</h3>
-      <p className="mt-2 text-sm text-[#3F3F3F]">
+    <section className="border border-[#5D5838]/20 bg-white p-8">
+      <p className="text-xs font-medium uppercase tracking-[0.15em] text-[#5D5838]">Milestone Tracking</p>
+      <h3 className="mt-3 text-xl font-normal tracking-wide text-[#5D5838]">EXCHANGE TIMELINE TRACKER</h3>
+      <p className="mt-4 text-sm leading-relaxed text-[#3F3F3F]">
         Map critical milestones relative to the relinquished closing date. Adjust the schedule as contingencies shift.
       </p>
-      <label className="mt-4 flex w-full max-w-xs flex-col text-sm font-semibold text-heading">
+      <label className="mt-6 flex w-full max-w-xs flex-col text-sm font-medium text-[#5D5838]">
         Relinquished closing date
         <input
           type="date"
           value={closeDate}
           onChange={(event) => setCloseDate(event.target.value)}
-          className="mt-2 rounded-xl border border-outline/20 px-3 py-2 text-sm font-normal text-[#1B1B1B] outline-none transition focus:border-primary focus:ring-2 focus:ring-primary/20"
+          className="mt-2 border border-[#5D5838]/20 px-4 py-3 text-sm font-normal text-[#1B1B1B] outline-none transition focus:border-[#5D5838]"
         />
       </label>
-      <ul className="mt-4 space-y-3">
+      <ul className="mt-6 space-y-0 divide-y divide-[#5D5838]/10">
         {schedule.map((milestone) => (
-          <li key={milestone.label} className="rounded-2xl border border-outline/15 bg-panel px-4 py-3">
+          <li key={milestone.label} className="py-4">
             <div className="flex flex-col gap-1 sm:flex-row sm:items-center sm:justify-between">
-              <p className="text-sm font-semibold text-heading">{milestone.label}</p>
-              <p className="text-sm text-primary">{milestone.date}</p>
+              <p className="text-sm font-semibold text-[#5D5838]">{milestone.label}</p>
+              <p className="text-sm font-medium text-[#5D5838]">{milestone.date}</p>
             </div>
-            <p className="mt-2 text-xs text-[#3F3F3F]">{milestone.description}</p>
+            <p className="mt-2 text-xs leading-relaxed text-[#3F3F3F]">{milestone.description}</p>
           </li>
         ))}
       </ul>
     </section>
   );
 }
-

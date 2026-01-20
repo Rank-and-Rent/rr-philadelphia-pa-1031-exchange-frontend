@@ -1,13 +1,16 @@
 export const tokens = {
-  paper: "#F9F9F8",
+  paper: "#FFFFFF",
   ink: "#1B1B1B",
-  heading: "#14213D",
-  primaryBg: "#14213D",
-  primaryFg: "#F9F9F8",
-  secondaryBg: "#B68F40",
-  secondaryFg: "#1B1B1B",
-  outline: "#8A6B2F",
-  panel: "#EDEAE0",
+  heading: "#5D5838",
+  primaryBg: "#5D5838",
+  primaryFg: "#FFFFFF",
+  secondaryBg: "#5D5838",
+  secondaryFg: "#FFFFFF",
+  outline: "#5D5838",
+  panel: "#F8F7F4",
+  olive: "#5D5838",
+  oliveLight: "#7A7654",
+  oliveDark: "#454326",
 };
 
 export default tokens;

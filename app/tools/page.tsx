@@ -55,42 +55,50 @@ export default function ToolsPage() {
 
   return (
     <>
-      <section className="bg-[#F4F3EE] py-16">
+      {/* Hero Section */}
+      <section className="bg-[#5D5838] py-20 text-white">
         <div className="container space-y-6">
           <Breadcrumbs items={breadcrumbItems} />
           <div className="max-w-3xl space-y-4">
-            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-primary">Exchange Tools</p>
-            <h1 className="text-4xl font-semibold text-heading">1031 Exchange Tools</h1>
-            <p className="text-lg text-[#3F3F3F]">
+            <p className="text-xs font-medium uppercase tracking-[0.2em] text-white/60">Exchange Tools</p>
+            <h1 className="text-4xl font-normal tracking-wide sm:text-5xl">1031 EXCHANGE TOOLS</h1>
+            <p className="text-base leading-relaxed text-white/80">
               Free calculators and tools to help you plan and execute 1031 exchanges in {PRIMARY_CITY}, {PRIMARY_STATE_ABBR}. Use these interactive tools to estimate costs, calculate boot, and validate identification rules.
             </p>
           </div>
         </div>
       </section>
-      <section className="container space-y-16 bg-white py-16">
-        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-          {tools.map((tool) => (
-            <Link
-              key={tool.slug}
-              href={`/tools/${tool.slug}`}
-              className="group flex h-full flex-col justify-between rounded-2xl border border-[#D8D2C4] bg-white p-6 text-left shadow-sm transition-transform duration-200 hover:-translate-y-1 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#14213D]"
-            >
-              <div>
-                <h3 className="text-xl font-semibold text-[#14213D]">{tool.name}</h3>
-                <p className="mt-4 text-sm leading-relaxed text-[#3F3F3F]">{tool.description}</p>
-              </div>
-              <span className="ui-font mt-6 inline-flex items-center text-sm font-semibold text-[#B68F40] transition-colors group-hover:text-[#8A6B2F]">
-                Use calculator →
-              </span>
-            </Link>
-          ))}
-        </div>
-        <div className="rounded-3xl border border-outline/15 bg-panel p-6">
-          <p className="text-sm text-[#3F3F3F]">
-            <strong>Educational content only.</strong> Not tax, legal, or investment advice. Results are estimates only. Consult a qualified intermediary and tax advisor before making decisions. Pennsylvania does not impose a state real estate transfer tax. Recording fees and title insurance premiums still apply.
-          </p>
+
+      {/* Main Content */}
+      <section className="bg-white py-20">
+        <div className="container space-y-16">
+          <div className="grid gap-1 md:grid-cols-3">
+            {tools.map((tool, index) => {
+              const bgColors = ["bg-[#5D5838]", "bg-[#7A7654]", "bg-[#454326]"];
+              return (
+                <Link
+                  key={tool.slug}
+                  href={`/tools/${tool.slug}`}
+                  className={`group relative flex aspect-[4/3] items-end overflow-hidden ${bgColors[index]} p-6 text-white transition-all hover:opacity-90`}
+                >
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+                  <div className="relative z-10">
+                    <h3 className="text-sm font-medium uppercase tracking-[0.15em]">{tool.name}</h3>
+                    <p className="mt-2 text-xs leading-relaxed text-white/80">{tool.description}</p>
+                  </div>
+                </Link>
+              );
+            })}
+          </div>
+          
+          <div className="border border-[#5D5838]/10 bg-[#F8F7F4] p-8">
+            <p className="text-sm text-[#3F3F3F]">
+              <strong className="text-[#5D5838]">Educational content only.</strong> Not tax, legal, or investment advice. Results are estimates only. Consult a qualified intermediary and tax advisor before making decisions. Pennsylvania does not impose a state real estate transfer tax. Recording fees and title insurance premiums still apply.
+            </p>
+          </div>
         </div>
       </section>
+      
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
@@ -98,4 +106,3 @@ export default function ToolsPage() {
     </>
   );
 }
-

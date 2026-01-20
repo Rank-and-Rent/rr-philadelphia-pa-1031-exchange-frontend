@@ -20,32 +20,32 @@ export function DeadlineCalculator() {
   }, [closeDate]);
 
   return (
-    <section className="rounded-3xl border border-outline/15 bg-white p-6 shadow-sm">
-      <h3 className="text-xl font-semibold text-heading">45 Day and 180 Day Deadline Calculator</h3>
-      <p className="mt-2 text-sm text-[#3F3F3F]">
+    <section className="border border-[#5D5838]/20 bg-white p-8">
+      <p className="text-xs font-medium uppercase tracking-[0.15em] text-[#5D5838]">Calculate Deadlines</p>
+      <h3 className="mt-3 text-xl font-normal tracking-wide text-[#5D5838]">45 DAY AND 180 DAY DEADLINE CALCULATOR</h3>
+      <p className="mt-4 text-sm leading-relaxed text-[#3F3F3F]">
         Enter the scheduled closing date for the relinquished property. Deadlines adjust to the {timeZone} time zone.
       </p>
-      <form className="mt-4 grid gap-4 sm:grid-cols-2">
-        <label className="flex flex-col text-sm font-semibold text-heading">
+      <form className="mt-6 grid gap-6 sm:grid-cols-2">
+        <label className="flex flex-col text-sm font-medium text-[#5D5838]">
           Relinquished closing date
           <input
             type="date"
             value={closeDate}
             onChange={(event) => setCloseDate(event.target.value)}
-            className="mt-2 rounded-xl border border-outline/20 px-3 py-2 text-sm font-normal text-[#1B1B1B] outline-none transition focus:border-primary focus:ring-2 focus:ring-primary/20"
+            className="mt-2 border border-[#5D5838]/20 px-4 py-3 text-sm font-normal text-[#1B1B1B] outline-none transition focus:border-[#5D5838]"
           />
         </label>
-        <div className="rounded-2xl border border-primary/20 bg-primary/5 px-4 py-3 text-sm text-[#1B1B1B]">
-          <p className="font-semibold text-heading">Calculated deadlines</p>
-          <p className="mt-2">
-            Identification deadline: <span className="font-semibold text-heading">{format(deadlines.identification, "MMMM d, yyyy")}</span>
+        <div className="border border-[#5D5838]/20 bg-[#F8F7F4] px-4 py-4 text-sm text-[#1B1B1B]">
+          <p className="text-xs font-medium uppercase tracking-[0.15em] text-[#5D5838]">Calculated deadlines</p>
+          <p className="mt-3">
+            Identification: <span className="font-semibold text-[#5D5838]">{format(deadlines.identification, "MMMM d, yyyy")}</span>
           </p>
           <p className="mt-1">
-            Exchange completion deadline: <span className="font-semibold text-heading">{format(deadlines.completion, "MMMM d, yyyy")}</span>
+            Completion: <span className="font-semibold text-[#5D5838]">{format(deadlines.completion, "MMMM d, yyyy")}</span>
           </p>
         </div>
       </form>
     </section>
   );
 }
-

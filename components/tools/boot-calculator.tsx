@@ -29,15 +29,18 @@ export function BootCalculator() {
     };
   }, [relinquishedValue, replacementValue, cashReceived, oldMortgage, newMortgage]);
 
+  const inputClasses = "mt-2 w-full border border-[#5D5838]/20 px-4 py-3 text-sm font-normal text-[#1B1B1B] outline-none transition focus:border-[#5D5838]";
+
   return (
-    <div className="space-y-6">
-      <div className="rounded-3xl border border-outline/15 bg-white p-6 shadow-sm">
-        <h2 className="text-xl font-semibold text-heading mb-4">Calculate Boot</h2>
-        <p className="text-sm text-[#3F3F3F] mb-6">
+    <div className="space-y-8">
+      <div className="border border-[#5D5838]/20 bg-white p-8">
+        <p className="text-xs font-medium uppercase tracking-[0.15em] text-[#5D5838]">Calculator</p>
+        <h2 className="mt-3 text-xl font-normal tracking-wide text-[#5D5838]">CALCULATE BOOT</h2>
+        <p className="mt-4 text-sm leading-relaxed text-[#3F3F3F]">
           Boot is cash or other non-like-kind property received during an exchange. It is subject to immediate taxation and cannot be deferred.
         </p>
-        <div className="grid gap-4 md:grid-cols-2">
-          <label className="flex flex-col text-sm font-semibold text-heading">
+        <div className="mt-6 grid gap-6 md:grid-cols-2">
+          <label className="flex flex-col text-sm font-medium text-[#5D5838]">
             Relinquished Property Value
             <input
               type="number"
@@ -46,11 +49,11 @@ export function BootCalculator() {
               placeholder="0"
               min="0"
               step="1000"
-              className="mt-2 rounded-xl border border-outline/20 px-3 py-2 text-sm font-normal text-[#1B1B1B] outline-none transition focus:border-primary focus:ring-2 focus:ring-primary/20"
+              className={inputClasses}
             />
             <span className="mt-1 text-xs text-[#3F3F3F] font-normal">Sale price of property being sold</span>
           </label>
-          <label className="flex flex-col text-sm font-semibold text-heading">
+          <label className="flex flex-col text-sm font-medium text-[#5D5838]">
             Replacement Property Value
             <input
               type="number"
@@ -59,11 +62,11 @@ export function BootCalculator() {
               placeholder="0"
               min="0"
               step="1000"
-              className="mt-2 rounded-xl border border-outline/20 px-3 py-2 text-sm font-normal text-[#1B1B1B] outline-none transition focus:border-primary focus:ring-2 focus:ring-primary/20"
+              className={inputClasses}
             />
             <span className="mt-1 text-xs text-[#3F3F3F] font-normal">Purchase price of replacement property</span>
           </label>
-          <label className="flex flex-col text-sm font-semibold text-heading">
+          <label className="flex flex-col text-sm font-medium text-[#5D5838]">
             Cash Received
             <input
               type="number"
@@ -72,11 +75,11 @@ export function BootCalculator() {
               placeholder="0"
               min="0"
               step="1000"
-              className="mt-2 rounded-xl border border-outline/20 px-3 py-2 text-sm font-normal text-[#1B1B1B] outline-none transition focus:border-primary focus:ring-2 focus:ring-primary/20"
+              className={inputClasses}
             />
             <span className="mt-1 text-xs text-[#3F3F3F] font-normal">Cash received at closing</span>
           </label>
-          <label className="flex flex-col text-sm font-semibold text-heading">
+          <label className="flex flex-col text-sm font-medium text-[#5D5838]">
             Old Mortgage Balance
             <input
               type="number"
@@ -85,11 +88,11 @@ export function BootCalculator() {
               placeholder="0"
               min="0"
               step="1000"
-              className="mt-2 rounded-xl border border-outline/20 px-3 py-2 text-sm font-normal text-[#1B1B1B] outline-none transition focus:border-primary focus:ring-2 focus:ring-primary/20"
+              className={inputClasses}
             />
             <span className="mt-1 text-xs text-[#3F3F3F] font-normal">Mortgage on relinquished property</span>
           </label>
-          <label className="flex flex-col text-sm font-semibold text-heading">
+          <label className="flex flex-col text-sm font-medium text-[#5D5838]">
             New Mortgage Balance
             <input
               type="number"
@@ -98,7 +101,7 @@ export function BootCalculator() {
               placeholder="0"
               min="0"
               step="1000"
-              className="mt-2 rounded-xl border border-outline/20 px-3 py-2 text-sm font-normal text-[#1B1B1B] outline-none transition focus:border-primary focus:ring-2 focus:ring-primary/20"
+              className={inputClasses}
             />
             <span className="mt-1 text-xs text-[#3F3F3F] font-normal">Mortgage on replacement property</span>
           </label>
@@ -106,43 +109,44 @@ export function BootCalculator() {
       </div>
 
       {calculations.isValid && (
-        <div className="rounded-3xl border border-outline/15 bg-white p-6 shadow-sm">
-          <h3 className="text-lg font-semibold text-heading mb-4">Boot Calculation Results</h3>
-          <div className="space-y-4">
-            <div className="rounded-2xl border border-primary/20 bg-primary/5 px-4 py-3">
+        <div className="border border-[#5D5838]/20 bg-white p-8">
+          <p className="text-xs font-medium uppercase tracking-[0.15em] text-[#5D5838]">Results</p>
+          <h3 className="mt-3 text-lg font-normal tracking-wide text-[#5D5838]">BOOT CALCULATION RESULTS</h3>
+          <div className="mt-6 space-y-4">
+            <div className="border border-[#5D5838]/20 bg-[#F8F7F4] px-4 py-4">
               <div className="flex justify-between items-center">
                 <span className="text-sm text-[#3F3F3F]">Cash Boot</span>
-                <span className="text-lg font-semibold text-heading">
+                <span className="text-lg font-semibold text-[#5D5838]">
                   ${parseFloat(cashReceived || "0").toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
                 </span>
               </div>
             </div>
-            <div className="rounded-2xl border border-primary/20 bg-primary/5 px-4 py-3">
+            <div className="border border-[#5D5838]/20 bg-[#F8F7F4] px-4 py-4">
               <div className="flex justify-between items-center">
                 <span className="text-sm text-[#3F3F3F]">Mortgage Boot</span>
-                <span className="text-lg font-semibold text-heading">
+                <span className="text-lg font-semibold text-[#5D5838]">
                   ${calculations.mortgageBoot.toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
                 </span>
               </div>
-              <p className="text-xs text-[#3F3F3F] mt-1">
+              <p className="text-xs text-[#3F3F3F] mt-2">
                 {calculations.mortgageBoot > 0
                   ? "Debt relief when new mortgage is less than old mortgage"
                   : "No mortgage boot (new mortgage equals or exceeds old mortgage)"}
               </p>
             </div>
-            <div className="rounded-2xl border-2 border-primary bg-primary/10 px-4 py-4">
+            <div className="border-2 border-[#5D5838] bg-[#5D5838]/10 px-4 py-4">
               <div className="flex justify-between items-center">
-                <span className="text-base font-semibold text-heading">Total Boot</span>
-                <span className="text-xl font-bold text-heading">
+                <span className="text-base font-semibold text-[#5D5838]">Total Boot</span>
+                <span className="text-xl font-bold text-[#5D5838]">
                   ${calculations.totalBoot.toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
                 </span>
               </div>
             </div>
             {calculations.hasBoot && (
-              <div className="rounded-2xl border border-[#B68F40]/30 bg-[#B68F40]/10 px-4 py-3">
+              <div className="border border-[#7A7654]/30 bg-[#7A7654]/10 px-4 py-4">
                 <div className="flex justify-between items-center">
                   <span className="text-sm text-[#3F3F3F]">Estimated Tax on Boot (20%)</span>
-                  <span className="text-lg font-semibold text-heading">
+                  <span className="text-lg font-semibold text-[#5D5838]">
                     ${calculations.estimatedTax.toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
                   </span>
                 </div>
@@ -152,7 +156,7 @@ export function BootCalculator() {
               </div>
             )}
             {!calculations.hasBoot && (
-              <div className="rounded-2xl border border-green-500/30 bg-green-500/10 px-4 py-3">
+              <div className="border border-green-500/30 bg-green-500/10 px-4 py-4">
                 <p className="text-sm font-semibold text-green-700">No boot detected. All proceeds appear to be reinvested in like-kind property.</p>
               </div>
             )}
@@ -162,4 +166,3 @@ export function BootCalculator() {
     </div>
   );
 }
-

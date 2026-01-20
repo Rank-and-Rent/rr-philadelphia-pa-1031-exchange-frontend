@@ -179,24 +179,24 @@ export function ContactForm({ variant = "default" }: ContactFormProps) {
 
   const isDark = variant === "dark";
   const formClassName = isDark
-    ? "space-y-6 rounded-3xl border border-white/10 bg-white/5 p-8 shadow-xl backdrop-blur"
-    : "space-y-6 rounded-3xl border border-outline/15 bg-white p-8 shadow-xl";
+    ? "space-y-6 border border-white/20 bg-white/5 p-8 backdrop-blur"
+    : "space-y-6 border border-[#5D5838]/10 bg-white p-8";
   const labelClassName = isDark
-    ? "flex flex-col text-sm font-semibold text-white"
-    : "flex flex-col text-sm font-semibold text-heading";
+    ? "flex flex-col text-sm font-medium text-white"
+    : "flex flex-col text-sm font-medium text-[#5D5838]";
   const inputClassName = (hasError: boolean) =>
     isDark
-      ? `mt-2 rounded-xl border px-3 py-2 text-sm text-white outline-none transition focus:border-[#B68F40] focus:ring-2 focus:ring-[#B68F40]/20 ${
-          hasError ? "border-red-400 bg-white/10" : "border-white/20 bg-white/10"
+      ? `mt-2 border px-4 py-3 text-sm text-white outline-none transition focus:border-white focus:ring-0 ${
+          hasError ? "border-red-400 bg-white/10" : "border-white/30 bg-white/10"
         }`
-      : `mt-2 rounded-xl border px-3 py-2 text-sm text-[#1B1B1B] outline-none transition focus:border-primary focus:ring-2 focus:ring-primary/20 ${
-          hasError ? "border-red-400" : "border-outline/20"
+      : `mt-2 border px-4 py-3 text-sm text-[#1B1B1B] outline-none transition focus:border-[#5D5838] focus:ring-0 ${
+          hasError ? "border-red-400" : "border-[#5D5838]/20"
         }`;
   const errorClassName = isDark ? "mt-2 text-xs text-red-300" : "mt-2 text-xs text-red-500";
   const statusClassName = (isSuccess: boolean) =>
     isDark
-      ? `text-sm font-semibold ${isSuccess ? "text-green-300" : "text-red-300"}`
-      : `text-sm font-semibold ${isSuccess ? "text-green-600" : "text-red-600"}`;
+      ? `text-sm font-medium ${isSuccess ? "text-green-300" : "text-red-300"}`
+      : `text-sm font-medium ${isSuccess ? "text-green-600" : "text-red-600"}`;
 
   return (
     <form
@@ -329,19 +329,19 @@ export function ContactForm({ variant = "default" }: ContactFormProps) {
           <div ref={turnstileRef} />
         </div>
       )}
-      <div className={`flex flex-col gap-3 text-sm md:flex-row md:items-center md:justify-between ${isDark ? "text-[#E8E9ED]" : "text-[#3F3F3F]"}`}>
+      <div className={`flex flex-col gap-4 text-sm md:flex-row md:items-center md:justify-between ${isDark ? "text-white/80" : "text-[#3F3F3F]"}`}>
         <button
           type="submit"
           disabled={isSubmitting}
-          className={`inline-flex rounded-full px-6 py-2 text-sm font-semibold transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 disabled:opacity-70 disabled:cursor-not-allowed ${
+          className={`inline-flex px-8 py-3 text-xs font-medium uppercase tracking-[0.1em] transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 disabled:opacity-70 disabled:cursor-not-allowed ${
             isDark
-              ? "bg-[#B68F40] text-[#F9F9F8] hover:bg-[#8A6F2F] focus-visible:outline-[#F9F9F8]"
-              : "bg-primary text-white hover:bg-[#0f1c33] focus-visible:outline-primary"
+              ? "border border-white bg-transparent text-white hover:bg-white hover:text-[#5D5838] focus-visible:outline-white"
+              : "bg-[#5D5838] text-white hover:bg-[#454326] focus-visible:outline-[#5D5838]"
           }`}
         >
-          {isSubmitting ? "Submitting..." : "Submit request"}
+          {isSubmitting ? "Submitting..." : "Get Started Today"}
         </button>
-        <p className={isDark ? "text-xs text-[#E8E9ED]" : "text-xs text-[#6B6B6B]"}>
+        <p className={isDark ? "text-xs text-white/60" : "text-xs text-[#6B6B6B]"}>
           Educational content only. Not tax or legal advice. You may also reach us at {PHONE_DISPLAY} or {CONTACT_EMAIL}.
         </p>
       </div>

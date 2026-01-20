@@ -49,14 +49,14 @@ export function BlogBrowser({ posts, total }: BlogBrowserProps) {
 
   if (posts.length === 0) {
     return (
-      <div className="rounded-3xl border border-primary/20 bg-primary/5 p-6 text-sm text-[#1B1B1B]">
-        <p className="font-semibold text-heading">Articles will be published soon.</p>
-        <p className="mt-2">
+      <div className="border border-[#5D5838]/20 bg-[#F8F7F4] p-8 text-sm text-[#1B1B1B]">
+        <p className="font-semibold text-[#5D5838]">Articles will be published soon.</p>
+        <p className="mt-2 text-[#3F3F3F]">
           Share your exchange priorities and we will notify you when new guidance is available.
         </p>
         <Link
           href={`/contact?projectType=${buildPrefillQuery("Blog updates")}#lead-form`}
-          className="mt-4 inline-flex rounded-full bg-primary px-5 py-2 text-sm font-semibold text-white transition-colors hover:bg-[#0f1c33]"
+          className="mt-6 inline-flex bg-[#5D5838] px-6 py-3 text-xs font-medium uppercase tracking-[0.1em] text-white transition-colors hover:bg-[#454326]"
         >
           Contact advisor
         </Link>
@@ -66,38 +66,38 @@ export function BlogBrowser({ posts, total }: BlogBrowserProps) {
 
   return (
     <div className="space-y-10">
-      <div className="grid gap-6 md:grid-cols-2">
+      <div className="grid gap-1 md:grid-cols-2">
         {paginatedPosts.map((post) => (
-          <article key={post._id} className="flex h-full flex-col rounded-3xl border border-outline/15 bg-white shadow-sm">
+          <article key={post._id} className="flex h-full flex-col bg-white">
             {post.featuredImage?.url ? (
-              <div className="aspect-[16/9] overflow-hidden rounded-t-3xl bg-panel">
+              <div className="aspect-[16/9] overflow-hidden bg-[#F8F7F4]">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img src={post.featuredImage.url} alt={post.featuredImage.alt || post.title} className="h-full w-full object-cover" />
               </div>
             ) : null}
-            <div className="flex flex-1 flex-col space-y-3 p-6">
-              <div className="flex items-center gap-2 text-xs text-[#6B6B6B]">
+            <div className="flex flex-1 flex-col space-y-3 p-8">
+              <div className="flex items-center gap-2 text-xs uppercase tracking-[0.1em] text-[#5D5838]/60">
                 <time dateTime={post.publishedAt}>{format(new Date(post.publishedAt), "MMMM d, yyyy")}</time>
                 {post.readingTime ? <span>• {post.readingTime} min read</span> : null}
               </div>
-              <h2 className="text-xl font-semibold text-heading">
-                <Link href={`/blog/${post.slug}`} className="transition-colors hover:text-primary">
+              <h2 className="text-lg font-semibold text-[#5D5838]">
+                <Link href={`/blog/${post.slug}`} className="transition-colors hover:text-[#7A7654]">
                   {post.title}
                 </Link>
               </h2>
-              <p className="text-sm text-[#3F3F3F]">{post.excerpt}</p>
+              <p className="text-sm leading-relaxed text-[#3F3F3F]">{post.excerpt}</p>
               {post.categories && post.categories.length > 0 ? (
-                <p className="text-xs font-semibold uppercase tracking-[0.18em] text-primary">
+                <p className="text-xs font-medium uppercase tracking-[0.15em] text-[#5D5838]">
                   {post.categories.join(" • ")}
                 </p>
               ) : null}
-              <div className="mt-auto flex items-center justify-between text-sm font-semibold text-primary">
-                <Link href={`/blog/${post.slug}`} className="underline underline-offset-4">
+              <div className="mt-auto flex items-center justify-between text-xs font-medium uppercase tracking-[0.1em] text-[#5D5838]">
+                <Link href={`/blog/${post.slug}`} className="underline underline-offset-4 hover:text-[#7A7654]">
                   Read article
                 </Link>
                 <Link
                   href={`/contact?projectType=${buildPrefillQuery(`Discuss article: ${post.title}`)}#lead-form`}
-                  className="underline underline-offset-4"
+                  className="underline underline-offset-4 hover:text-[#7A7654]"
                 >
                   Ask a question
                 </Link>
@@ -115,7 +115,7 @@ export function BlogBrowser({ posts, total }: BlogBrowserProps) {
             type="button"
             onClick={() => setPage((prev) => Math.max(1, prev - 1))}
             disabled={currentPage === 1}
-            className="rounded-full border border-outline px-3 py-2 text-sm font-semibold text-[#1B1B1B] transition-colors hover:bg-panel disabled:cursor-not-allowed disabled:opacity-40"
+            className="border border-[#5D5838] px-5 py-2 text-xs font-medium uppercase tracking-[0.1em] text-[#5D5838] transition-colors hover:bg-[#5D5838] hover:text-white disabled:cursor-not-allowed disabled:opacity-40"
           >
             Previous
           </button>
@@ -123,7 +123,7 @@ export function BlogBrowser({ posts, total }: BlogBrowserProps) {
             type="button"
             onClick={() => setPage((prev) => Math.min(totalPages, prev + 1))}
             disabled={currentPage === totalPages}
-            className="rounded-full border border-outline px-3 py-2 text-sm font-semibold text-[#1B1B1B] transition-colors hover:bg-panel disabled:cursor-not-allowed disabled:opacity-40"
+            className="border border-[#5D5838] px-5 py-2 text-xs font-medium uppercase tracking-[0.1em] text-[#5D5838] transition-colors hover:bg-[#5D5838] hover:text-white disabled:cursor-not-allowed disabled:opacity-40"
           >
             Next
           </button>
@@ -132,4 +132,3 @@ export function BlogBrowser({ posts, total }: BlogBrowserProps) {
     </div>
   );
 }
-

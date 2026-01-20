@@ -4,7 +4,6 @@ import { useState, useEffect, Suspense, useRef } from "react";
 import Link from "next/link";
 import { Breadcrumbs } from "../../components/breadcrumbs";
 import { FormEvent } from "react";
-import { MapPinIcon, PhoneIcon, EnvelopeIcon, ClockIcon } from "@heroicons/react/24/outline";
 
 // Site configuration
 const SITE_URL = "https://www.1031exchangephiladelphia.com";
@@ -143,7 +142,6 @@ function ContactForm() {
     if (window.location.hash === "#contact-form") {
       const contactForm = document.getElementById("contact-form");
       if (contactForm) {
-        // Small delay to ensure page is fully rendered
         setTimeout(() => {
           contactForm.scrollIntoView({ behavior: "smooth", block: "start" });
         }, 100);
@@ -167,7 +165,6 @@ function ContactForm() {
     }
     if (!formData.phone.trim()) newErrors.phone = "Required";
     if (!formData.projectType.trim()) newErrors.projectType = "Required";
-    // city, property, estimatedCloseDate, company, timeline, and message are all optional
 
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
@@ -185,18 +182,15 @@ function ContactForm() {
     setFeedback("");
 
     try {
-      // Verify Turnstile is ready
       if (siteKey && (!turnstileReady || !window.turnstile || !turnstileId)) {
         setFeedback("Please complete the security verification.");
         setStatus("error");
         return;
       }
 
-      // Get Turnstile token
       let turnstileToken = '';
       if (siteKey && window.turnstile && turnstileId) {
         try {
-          // Reset before executing to avoid "already executed" error
           window.turnstile.reset(turnstileId);
           turnstileToken = await new Promise<string>((resolve, reject) => {
             if (!window.turnstile) {
@@ -222,10 +216,8 @@ function ContactForm() {
         }
       }
 
-      // Prepare phone number (digits only)
       const phoneDigits = formData.phone.replace(/\D/g, '');
 
-      // Submit to API
       const response = await fetch("/api/lead", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -257,7 +249,6 @@ function ContactForm() {
           timeline: "",
           message: "",
         });
-        // Reset turnstile
         if (window.turnstile && turnstileId) {
           window.turnstile.reset(turnstileId);
         }
@@ -267,7 +258,6 @@ function ContactForm() {
         const errorData = await response.json().catch(() => ({ error: 'Failed to submit form' }));
         setFeedback(errorData.error || 'Failed to submit form. Please try again.');
         setStatus("error");
-        // Reset turnstile on error
         if (window.turnstile && turnstileId) {
           window.turnstile.reset(turnstileId);
         }
@@ -276,383 +266,339 @@ function ContactForm() {
       console.error('Error submitting form:', error);
       setFeedback("An error occurred. Please try again or contact us directly.");
       setStatus("error");
-      // Reset turnstile on error
       if (window.turnstile && turnstileId) {
         window.turnstile.reset(turnstileId);
       }
     }
   };
 
+  const inputClasses = (hasError: boolean) =>
+    `w-full border px-4 py-3 text-sm text-[#1B1B1B] outline-none transition focus:border-[#5D5838] focus:ring-0 ${
+      hasError ? "border-red-400" : "border-[#5D5838]/20"
+    }`;
+
   return (
     <>
-      <Breadcrumbs items={breadcrumbItems} />
-
-      <div className="mx-auto max-w-7xl px-6 py-12 md:px-8 md:py-20">
-        {/* Header */}
-        <div className="mb-12 text-center">
-          <h1 className="mb-4 font-serif text-3xl font-bold text-[#14213D] md:text-4xl">
-            Contact 1031 Exchange {PRIMARY_CITY}
-          </h1>
-          <p className="mx-auto max-w-2xl text-lg text-gray-700">
-            Ready to start your 1031 exchange? Our {PRIMARY_CITY} team specializes in connecting investors with compliant replacement properties across Pennsylvania.
-          </p>
+      {/* Hero Section */}
+      <section className="bg-[#5D5838] py-20 text-white">
+        <div className="container space-y-6">
+          <Breadcrumbs items={breadcrumbItems} />
+          <div className="max-w-3xl space-y-4">
+            <p className="text-xs font-medium uppercase tracking-[0.2em] text-white/60">Get in Touch</p>
+            <h1 className="text-4xl font-normal tracking-wide sm:text-5xl">CONTACT 1031 EXCHANGE {PRIMARY_CITY.toUpperCase()}</h1>
+            <p className="text-base leading-relaxed text-white/80">
+              Ready to start your 1031 exchange? Our {PRIMARY_CITY} team specializes in connecting investors with compliant replacement properties across Pennsylvania.
+            </p>
+          </div>
         </div>
+      </section>
 
-        <div className="grid gap-12 lg:grid-cols-2">
-          {/* Contact Form */}
-          <div id="contact-form" className="rounded-2xl border border-gray-200 bg-white p-8 shadow-lg">
-            <h2 className="mb-6 font-serif text-2xl font-bold text-[#14213D]">
-              Start Your Exchange Plan
-            </h2>
+      {/* Main Content */}
+      <section className="bg-white py-20">
+        <div className="container">
+          <div className="grid gap-12 lg:grid-cols-2">
+            {/* Contact Form */}
+            <div id="contact-form" className="border border-[#5D5838]/20 p-8">
+              <p className="text-xs font-medium uppercase tracking-[0.15em] text-[#5D5838]">Start Your Exchange</p>
+              <h2 className="mt-3 text-2xl font-normal tracking-wide text-[#5D5838]">START YOUR EXCHANGE PLAN</h2>
 
-            <form onSubmit={handleSubmit} className="space-y-6">
-              <fieldset disabled={status === "submitting"} className="space-y-6">
-                <div className="grid gap-6 md:grid-cols-2">
-                  <div>
-                    <label htmlFor="name" className="mb-2 block text-sm font-medium text-gray-900">
-                      Name <span className="text-red-600">*</span>
-                    </label>
-                    <input
-                      id="name"
-                      type="text"
-                      required
-                      value={formData.name}
-                      onChange={handleChange("name")}
-                      aria-describedby={errors.name ? "name-error" : "name-helper"}
-                      aria-invalid={!!errors.name}
-                      className="w-full rounded-lg border border-gray-300 bg-white px-4 py-3 text-gray-900 focus:border-[#14213D] focus:outline-none focus:ring-2 focus:ring-[#B68F40]"
-                    />
-                    {errors.name ? (
-                      <p id="name-error" className="mt-1 text-sm text-red-600">
-                        {errors.name}
-                      </p>
-                    ) : (
-                      <p id="name-helper" className="mt-1 text-xs text-gray-500">
-                        Primary investor or advisor name
-                      </p>
-                    )}
+              <form onSubmit={handleSubmit} className="mt-8 space-y-6">
+                <fieldset disabled={status === "submitting"} className="space-y-6">
+                  <div className="grid gap-6 md:grid-cols-2">
+                    <div>
+                      <label htmlFor="name" className="mb-2 block text-sm font-medium text-[#5D5838]">
+                        Name <span className="text-red-600">*</span>
+                      </label>
+                      <input
+                        id="name"
+                        type="text"
+                        required
+                        value={formData.name}
+                        onChange={handleChange("name")}
+                        className={inputClasses(!!errors.name)}
+                      />
+                      {errors.name && <p className="mt-1 text-xs text-red-600">{errors.name}</p>}
+                    </div>
+                    <div>
+                      <label htmlFor="email" className="mb-2 block text-sm font-medium text-[#5D5838]">
+                        Email <span className="text-red-600">*</span>
+                      </label>
+                      <input
+                        id="email"
+                        type="email"
+                        required
+                        value={formData.email}
+                        onChange={handleChange("email")}
+                        className={inputClasses(!!errors.email)}
+                      />
+                      {errors.email && <p className="mt-1 text-xs text-red-600">{errors.email}</p>}
+                    </div>
                   </div>
-                  <div>
-                    <label htmlFor="email" className="mb-2 block text-sm font-medium text-gray-900">
-                      Email <span className="text-red-600">*</span>
-                    </label>
-                    <input
-                      id="email"
-                      type="email"
-                      required
-                      value={formData.email}
-                      onChange={handleChange("email")}
-                      aria-describedby={errors.email ? "email-error" : "email-helper"}
-                      aria-invalid={!!errors.email}
-                      className="w-full rounded-lg border border-gray-300 bg-white px-4 py-3 text-gray-900 focus:border-[#14213D] focus:outline-none focus:ring-2 focus:ring-[#B68F40]"
-                    />
-                    {errors.email ? (
-                      <p id="email-error" className="mt-1 text-sm text-red-600">
-                        {errors.email}
-                      </p>
-                    ) : (
-                      <p id="email-helper" className="mt-1 text-xs text-gray-500">
-                        We send a confirmation and documentation checklist
-                      </p>
-                    )}
+                  
+                  <div className="grid gap-6 md:grid-cols-2">
+                    <div>
+                      <label htmlFor="phone" className="mb-2 block text-sm font-medium text-[#5D5838]">
+                        Phone <span className="text-red-600">*</span>
+                      </label>
+                      <input
+                        id="phone"
+                        type="tel"
+                        required
+                        value={formData.phone}
+                        onChange={handleChange("phone")}
+                        className={inputClasses(!!errors.phone)}
+                      />
+                      {errors.phone && <p className="mt-1 text-xs text-red-600">{errors.phone}</p>}
+                    </div>
+                    <div>
+                      <label htmlFor="company" className="mb-2 block text-sm font-medium text-[#5D5838]">
+                        Company
+                      </label>
+                      <input
+                        id="company"
+                        type="text"
+                        value={formData.company}
+                        onChange={handleChange("company")}
+                        className={inputClasses(false)}
+                      />
+                    </div>
                   </div>
-                </div>
-                <div className="grid gap-6 md:grid-cols-2">
+                  
                   <div>
-                    <label htmlFor="phone" className="mb-2 block text-sm font-medium text-gray-900">
-                      Phone <span className="text-red-600">*</span>
-                    </label>
-                    <input
-                      id="phone"
-                      type="tel"
-                      required
-                      value={formData.phone}
-                      onChange={handleChange("phone")}
-                      aria-describedby={errors.phone ? "phone-error" : "phone-helper"}
-                      aria-invalid={!!errors.phone}
-                      className="w-full rounded-lg border border-gray-300 bg-white px-4 py-3 text-gray-900 focus:border-[#14213D] focus:outline-none focus:ring-2 focus:ring-[#B68F40]"
-                    />
-                    {errors.phone ? (
-                      <p id="phone-error" className="mt-1 text-sm text-red-600">
-                        {errors.phone}
-                      </p>
-                    ) : (
-                      <p id="phone-helper" className="mt-1 text-xs text-gray-500">
-                        We confirm timelines by phone within one business day
-                      </p>
-                    )}
-                  </div>
-                  <div>
-                    <label htmlFor="company" className="mb-2 block text-sm font-medium text-gray-900">
-                      Company
-                    </label>
-                    <input
-                      id="company"
-                      type="text"
-                      value={formData.company}
-                      onChange={handleChange("company")}
-                      aria-describedby="company-helper"
-                      className="w-full rounded-lg border border-gray-300 bg-white px-4 py-3 text-gray-900 focus:border-[#14213D] focus:outline-none focus:ring-2 focus:ring-[#B68F40]"
-                    />
-                    <p id="company-helper" className="mt-1 text-xs text-gray-500">
-                      Company or organization name (optional)
-                    </p>
-                  </div>
-                </div>
-                <div>
-                  <label htmlFor="projectType" className="mb-2 block text-sm font-medium text-gray-900">
-                    Service <span className="text-red-600">*</span>
-                  </label>
-                  <select
-                    id="projectType"
-                    required
-                    value={formData.projectType}
-                    onChange={handleChange("projectType")}
-                    aria-describedby={errors.projectType ? "projectType-error" : "projectType-helper"}
-                    aria-invalid={!!errors.projectType}
-                    className="w-full rounded-lg border border-gray-300 bg-white px-4 py-3 text-gray-900 focus:border-[#14213D] focus:outline-none focus:ring-2 focus:ring-[#B68F40]"
-                  >
-                    <option value="">Select a service</option>
-                    <option value="Forward Exchange Structuring">Forward Exchange Structuring</option>
-                    <option value="Reverse Exchange Structuring">Reverse Exchange Structuring</option>
-                    <option value="Replacement Property Scouting">Replacement Property Scouting</option>
-                    <option value="Property Identification">Property Identification</option>
-                    <option value="NNN Retail Identification">NNN Retail Identification</option>
-                    <option value="Multifamily 1031 Identification">Multifamily 1031 Identification</option>
-                    <option value="Industrial Flex Identification">Industrial Flex Identification</option>
-                    <option value="Delaware Statutory Trust Placement">Delaware Statutory Trust Placement</option>
-                    <option value="Improvement Exchange Construction">Improvement Exchange Construction</option>
-                    <option value="Timeline Discipline Program">Timeline Discipline Program</option>
-                    <option value="Form 8824 Preparation Support">Form 8824 Preparation Support</option>
-                    <option value="Boot Minimization Strategy">Boot Minimization Strategy</option>
-                    <option value="Exchange Consultation">Exchange Consultation</option>
-                  </select>
-                  {errors.projectType ? (
-                    <p id="projectType-error" className="mt-1 text-sm text-red-600">
-                      {errors.projectType}
-                    </p>
-                  ) : (
-                    <p id="projectType-helper" className="mt-1 text-xs text-gray-500">
-                      Select the service you are interested in
-                    </p>
-                  )}
-                </div>
-                <div className="grid gap-6 md:grid-cols-2">
-                  <div>
-                    <label htmlFor="city" className="mb-2 block text-sm font-medium text-gray-900">
-                      City
-                    </label>
-                    <input
-                      id="city"
-                      type="text"
-                      value={formData.city}
-                      onChange={handleChange("city")}
-                      aria-describedby="city-helper"
-                      className="w-full rounded-lg border border-gray-300 bg-white px-4 py-3 text-gray-900 focus:border-[#14213D] focus:outline-none focus:ring-2 focus:ring-[#B68F40]"
-                    />
-                    <p id="city-helper" className="mt-1 text-xs text-gray-500">
-                      Primary metro or submarket (optional)
-                    </p>
-                  </div>
-                  <div>
-                    <label htmlFor="timeline" className="mb-2 block text-sm font-medium text-gray-900">
-                      Timeline
+                    <label htmlFor="projectType" className="mb-2 block text-sm font-medium text-[#5D5838]">
+                      Service <span className="text-red-600">*</span>
                     </label>
                     <select
-                      id="timeline"
-                      value={formData.timeline}
-                      onChange={handleChange("timeline")}
-                      aria-describedby="timeline-helper"
-                      className="w-full rounded-lg border border-gray-300 bg-white px-4 py-3 text-gray-900 focus:border-[#14213D] focus:outline-none focus:ring-2 focus:ring-[#B68F40]"
+                      id="projectType"
+                      required
+                      value={formData.projectType}
+                      onChange={handleChange("projectType")}
+                      className={inputClasses(!!errors.projectType)}
                     >
-                      <option value="">Select timeline (optional)</option>
-                      <option value="Immediate">Immediate</option>
-                      <option value="45 days">45 days</option>
-                      <option value="180 days">180 days</option>
-                      <option value="Planning phase">Planning phase</option>
+                      <option value="">Select a service</option>
+                      <option value="Forward Exchange Structuring">Forward Exchange Structuring</option>
+                      <option value="Reverse Exchange Structuring">Reverse Exchange Structuring</option>
+                      <option value="Replacement Property Scouting">Replacement Property Scouting</option>
+                      <option value="Property Identification">Property Identification</option>
+                      <option value="NNN Retail Identification">NNN Retail Identification</option>
+                      <option value="Multifamily 1031 Identification">Multifamily 1031 Identification</option>
+                      <option value="Industrial Flex Identification">Industrial Flex Identification</option>
+                      <option value="Delaware Statutory Trust Placement">Delaware Statutory Trust Placement</option>
+                      <option value="Improvement Exchange Construction">Improvement Exchange Construction</option>
+                      <option value="Timeline Discipline Program">Timeline Discipline Program</option>
+                      <option value="Form 8824 Preparation Support">Form 8824 Preparation Support</option>
+                      <option value="Boot Minimization Strategy">Boot Minimization Strategy</option>
+                      <option value="Exchange Consultation">Exchange Consultation</option>
                     </select>
-                    <p id="timeline-helper" className="mt-1 text-xs text-gray-500">
-                      When do you plan to start your exchange?
-                    </p>
+                    {errors.projectType && <p className="mt-1 text-xs text-red-600">{errors.projectType}</p>}
                   </div>
-                </div>
-                <div className="grid gap-6 md:grid-cols-2">
+                  
+                  <div className="grid gap-6 md:grid-cols-2">
+                    <div>
+                      <label htmlFor="city" className="mb-2 block text-sm font-medium text-[#5D5838]">
+                        City
+                      </label>
+                      <input
+                        id="city"
+                        type="text"
+                        value={formData.city}
+                        onChange={handleChange("city")}
+                        placeholder="Primary metro or submarket"
+                        className={inputClasses(false)}
+                      />
+                    </div>
+                    <div>
+                      <label htmlFor="timeline" className="mb-2 block text-sm font-medium text-[#5D5838]">
+                        Timeline
+                      </label>
+                      <select
+                        id="timeline"
+                        value={formData.timeline}
+                        onChange={handleChange("timeline")}
+                        className={inputClasses(false)}
+                      >
+                        <option value="">Select timeline</option>
+                        <option value="Immediate">Immediate</option>
+                        <option value="45 days">45 days</option>
+                        <option value="180 days">180 days</option>
+                        <option value="Planning phase">Planning phase</option>
+                      </select>
+                    </div>
+                  </div>
+                  
+                  <div className="grid gap-6 md:grid-cols-2">
+                    <div>
+                      <label htmlFor="property" className="mb-2 block text-sm font-medium text-[#5D5838]">
+                        Property Being Sold
+                      </label>
+                      <input
+                        id="property"
+                        type="text"
+                        value={formData.property}
+                        onChange={handleChange("property")}
+                        placeholder="Type, location, value"
+                        className={inputClasses(false)}
+                      />
+                    </div>
+                    <div>
+                      <label htmlFor="estimatedCloseDate" className="mb-2 block text-sm font-medium text-[#5D5838]">
+                        Estimated Close Date
+                      </label>
+                      <input
+                        id="estimatedCloseDate"
+                        type="date"
+                        value={formData.estimatedCloseDate}
+                        onChange={handleChange("estimatedCloseDate")}
+                        className={inputClasses(false)}
+                      />
+                    </div>
+                  </div>
+                  
                   <div>
-                    <label htmlFor="property" className="mb-2 block text-sm font-medium text-gray-900">
-                      Property Being Sold
+                    <label htmlFor="message" className="mb-2 block text-sm font-medium text-[#5D5838]">
+                      Message
                     </label>
-                    <input
-                      id="property"
-                      type="text"
-                      value={formData.property}
-                      onChange={handleChange("property")}
-                      aria-describedby="property-helper"
-                      className="w-full rounded-lg border border-gray-300 bg-white px-4 py-3 text-gray-900 focus:border-[#14213D] focus:outline-none focus:ring-2 focus:ring-[#B68F40]"
+                    <textarea
+                      id="message"
+                      rows={4}
+                      value={formData.message}
+                      onChange={handleChange("message")}
+                      placeholder="Outline goals, replacement preferences, or coordination needs"
+                      className={inputClasses(false)}
                     />
-                    <p id="property-helper" className="mt-1 text-xs text-gray-500">
-                      Include property type, location, and estimated value (optional)
+                  </div>
+
+                  {siteKey && (
+                    <div className="flex justify-center">
+                      <div ref={captchaRef} className="min-h-[78px]" />
+                    </div>
+                  )}
+                  
+                  <button
+                    type="submit"
+                    disabled={status === "submitting" || !!(siteKey && !turnstileReady)}
+                    className="w-full bg-[#5D5838] px-8 py-4 text-xs font-medium uppercase tracking-[0.15em] text-white transition-colors hover:bg-[#454326] disabled:opacity-50 disabled:cursor-not-allowed"
+                  >
+                    {status === "submitting" ? "Submitting..." : "Get Started Today"}
+                  </button>
+                  
+                  <p className="text-xs text-[#6B6B6B]">Educational content only. Not tax or legal advice.</p>
+                  
+                  {feedback && (
+                    <p className={`text-sm font-medium ${status === "success" ? "text-green-700" : "text-red-600"}`}>
+                      {feedback}
                     </p>
-                  </div>
-                  <div>
-                    <label htmlFor="estimatedCloseDate" className="mb-2 block text-sm font-medium text-gray-900">
-                      Estimated Close Date
-                    </label>
-                    <input
-                      id="estimatedCloseDate"
-                      type="date"
-                      value={formData.estimatedCloseDate}
-                      onChange={handleChange("estimatedCloseDate")}
-                      aria-describedby="date-helper"
-                      className="w-full rounded-lg border border-gray-300 bg-white px-4 py-3 text-gray-900 focus:border-[#14213D] focus:outline-none focus:ring-2 focus:ring-[#B68F40]"
-                    />
-                    <p id="date-helper" className="mt-1 text-xs text-gray-500">
-                      Determines your 45 day and 180 day milestones (optional)
-                    </p>
-                  </div>
-                </div>
-                <div>
-                  <label htmlFor="message" className="mb-2 block text-sm font-medium text-gray-900">
-                    Message
-                  </label>
-                  <textarea
-                    id="message"
-                    rows={4}
-                    value={formData.message}
-                    onChange={handleChange("message")}
-                    aria-describedby="message-helper"
-                    className="w-full rounded-lg border border-gray-300 bg-white px-4 py-3 text-gray-900 focus:border-[#14213D] focus:outline-none focus:ring-2 focus:ring-[#B68F40]"
-                  />
-                  <p id="message-helper" className="mt-1 text-xs text-gray-500">
-                    Outline goals, replacement preferences, or coordination needs (optional)
-                  </p>
-                </div>
+                  )}
+                </fieldset>
+              </form>
+            </div>
 
-                {/* Turnstile Container */}
-                {siteKey && (
-                  <div className="flex justify-center">
-                    <div ref={captchaRef} className="min-h-[78px]" />
+            {/* Contact Info & Map */}
+            <div className="space-y-8">
+              {/* Office Info */}
+              <div className="border border-[#5D5838]/20 p-8">
+                <p className="text-xs font-medium uppercase tracking-[0.15em] text-[#5D5838]">Office</p>
+                <h3 className="mt-3 text-xl font-normal tracking-wide text-[#5D5838]">{PRIMARY_CITY.toUpperCase()} OFFICE</h3>
+
+                <div className="mt-6 space-y-4">
+                  <div className="flex items-start gap-3">
+                    <svg className="h-5 w-5 text-[#5D5838] mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.5">
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z" />
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z" />
+                    </svg>
+                    <div className="text-sm text-[#3F3F3F]">
+                      <p className="font-medium text-[#5D5838]">1031 Exchange {PRIMARY_CITY}</p>
+                      <p>{OFFICE_ADDRESS}</p>
+                      <p>{OFFICE_CITY_STATE_ZIP}</p>
+                    </div>
                   </div>
-                )}
-                <button
-                  type="submit"
-                  disabled={status === "submitting" || !!(siteKey && !turnstileReady)}
-                  className="w-full rounded-full bg-[#B68F40] px-8 py-4 text-base font-semibold text-white shadow-lg transition hover:bg-[#8A6B2F] focus:outline-none focus:ring-2 focus:ring-[#B68F40] focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed"
-                >
-                  {status === "submitting" ? "Submitting..." : "Submit Consultation Request"}
-                </button>
-                <p className="text-xs text-gray-500">Educational content only. Not tax or legal advice.</p>
-                {feedback && (
-                  <p role="status" aria-live="polite" className={`text-sm font-medium ${status === "success" ? "text-green-700" : "text-red-600"}`}>
-                    {feedback}
-                  </p>
-                )}
-              </fieldset>
-            </form>
-          </div>
 
-          {/* Contact Info & Map */}
-          <div className="space-y-8">
-            {/* Office Info */}
-            <div className="rounded-2xl border border-gray-200 bg-white p-8 shadow-lg">
-              <h3 className="mb-6 font-serif text-xl font-bold text-[#14213D]">
-                {PRIMARY_CITY} Office
-              </h3>
-
-              <div className="space-y-4">
-                <div className="flex items-start space-x-3">
-                  <MapPinIcon className="h-5 w-5 text-[#B68F40] mt-1 flex-shrink-0" />
-                  <div className="text-sm text-gray-700">
-                    <p className="font-medium">1031 Exchange {PRIMARY_CITY}</p>
-                    <p>{OFFICE_ADDRESS}</p>
-                    <p>{OFFICE_CITY_STATE_ZIP}</p>
-                  </div>
-                </div>
-
-                <div className="flex items-center space-x-3">
-                  <PhoneIcon className="h-5 w-5 text-[#B68F40] flex-shrink-0" />
-                  <div className="text-sm text-gray-700">
-                    <a href={`tel:${PHONE_E164}`} className="hover:text-[#14213D] font-medium">
+                  <div className="flex items-center gap-3">
+                    <svg className="h-5 w-5 text-[#5D5838] flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.5">
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 01-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 00-1.091-.852H4.5A2.25 2.25 0 002.25 4.5v2.25z" />
+                    </svg>
+                    <a href={`tel:${PHONE_E164}`} className="text-sm font-medium text-[#5D5838] hover:text-[#7A7654]">
                       {PHONE_DISPLAY}
                     </a>
                   </div>
-                </div>
 
-                <div className="flex items-center space-x-3">
-                  <EnvelopeIcon className="h-5 w-5 text-[#B68F40] flex-shrink-0" />
-                  <div className="text-sm text-gray-700">
-                    <a href={`mailto:${CONTACT_EMAIL}`} className="hover:text-[#14213D] font-medium">
+                  <div className="flex items-center gap-3">
+                    <svg className="h-5 w-5 text-[#5D5838] flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.5">
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75" />
+                    </svg>
+                    <a href={`mailto:${CONTACT_EMAIL}`} className="text-sm font-medium text-[#5D5838] hover:text-[#7A7654]">
                       {CONTACT_EMAIL}
                     </a>
                   </div>
-                </div>
 
-                <div className="flex items-start space-x-3">
-                  <ClockIcon className="h-5 w-5 text-[#B68F40] mt-1 flex-shrink-0" />
-                  <div className="text-sm text-gray-700">
-                    <p className="font-medium">Hours</p>
-                    <p>Monday - Friday: 8:30 AM - 6:00 PM ET</p>
-                    <p>24/7 emergency support available</p>
+                  <div className="flex items-start gap-3">
+                    <svg className="h-5 w-5 text-[#5D5838] mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.5">
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                    <div className="text-sm text-[#3F3F3F]">
+                      <p className="font-medium text-[#5D5838]">Hours</p>
+                      <p>Monday - Friday: 8:30 AM - 6:00 PM ET</p>
+                      <p>24/7 emergency support available</p>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
 
-            {/* Map */}
-            <div className="rounded-2xl border border-gray-200 bg-white p-8 shadow-lg">
-              <h3 className="mb-4 font-serif text-xl font-bold text-[#14213D]">
-                Our Location
-              </h3>
-              <div className="aspect-video w-full overflow-hidden rounded-lg">
-                <iframe
-                  src={`https://maps.google.com/maps?q=${encodeURIComponent(OFFICE_ADDRESS_FULL)}&output=embed`}
-                  width="100%"
-                  height="100%"
-                  style={{ border: 0 }}
-                  allowFullScreen={false}
-                  loading="lazy"
-                  referrerPolicy="no-referrer-when-downgrade"
-                  title={`1031 Exchange ${PRIMARY_CITY} Office Location`}
-                  className="w-full h-full"
-                ></iframe>
+              {/* Map */}
+              <div className="border border-[#5D5838]/20 p-8">
+                <p className="text-xs font-medium uppercase tracking-[0.15em] text-[#5D5838]">Location</p>
+                <h3 className="mt-3 text-xl font-normal tracking-wide text-[#5D5838]">OUR LOCATION</h3>
+                <div className="mt-6 aspect-video w-full overflow-hidden">
+                  <iframe
+                    src={`https://maps.google.com/maps?q=${encodeURIComponent(OFFICE_ADDRESS_FULL)}&output=embed`}
+                    width="100%"
+                    height="100%"
+                    style={{ border: 0 }}
+                    allowFullScreen={false}
+                    loading="lazy"
+                    referrerPolicy="no-referrer-when-downgrade"
+                    title={`1031 Exchange ${PRIMARY_CITY} Office Location`}
+                    className="w-full h-full"
+                  ></iframe>
+                </div>
               </div>
-            </div>
 
-            {/* Quick Links */}
-            <div className="rounded-2xl border border-gray-200 bg-white p-8 shadow-lg">
-              <h3 className="mb-6 font-serif text-xl font-bold text-[#14213D]">
-                Quick Links
-              </h3>
-              <div className="grid gap-3 md:grid-cols-2">
-                <Link href="/services" className="text-[#14213D] hover:text-[#B68F40] transition-colors">
-                  View All Services
-                </Link>
-                <Link href="/locations" className="text-[#14213D] hover:text-[#B68F40] transition-colors">
-                  Explore Locations
-                </Link>
-                <Link href="/about" className="text-[#14213D] hover:text-[#B68F40] transition-colors">
-                  About Our Process
-                </Link>
-                <Link href="/blog" className="text-[#14213D] hover:text-[#B68F40] transition-colors">
-                  1031 Exchange Blog
-                </Link>
-                <Link href="/tools" className="text-[#14213D] hover:text-[#B68F40] transition-colors">
-                  Exchange Tools
-                </Link>
-                <Link href="/property-types" className="text-[#14213D] hover:text-[#B68F40] transition-colors">
-                  Property Types
-                </Link>
+              {/* Quick Links */}
+              <div className="border border-[#5D5838]/20 p-8">
+                <p className="text-xs font-medium uppercase tracking-[0.15em] text-[#5D5838]">Navigation</p>
+                <h3 className="mt-3 text-xl font-normal tracking-wide text-[#5D5838]">QUICK LINKS</h3>
+                <div className="mt-6 grid gap-3 md:grid-cols-2">
+                  <Link href="/services" className="text-sm text-[#5D5838] underline underline-offset-4 hover:text-[#7A7654]">
+                    View All Services
+                  </Link>
+                  <Link href="/locations" className="text-sm text-[#5D5838] underline underline-offset-4 hover:text-[#7A7654]">
+                    Explore Locations
+                  </Link>
+                  <Link href="/about" className="text-sm text-[#5D5838] underline underline-offset-4 hover:text-[#7A7654]">
+                    About Our Process
+                  </Link>
+                  <Link href="/blog" className="text-sm text-[#5D5838] underline underline-offset-4 hover:text-[#7A7654]">
+                    1031 Exchange Blog
+                  </Link>
+                  <Link href="/tools" className="text-sm text-[#5D5838] underline underline-offset-4 hover:text-[#7A7654]">
+                    Exchange Tools
+                  </Link>
+                  <Link href="/property-types" className="text-sm text-[#5D5838] underline underline-offset-4 hover:text-[#7A7654]">
+                    Property Types
+                  </Link>
+                </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
+      </section>
     </>
   );
 }
 
 export default function ContactPage() {
   return (
-    <div className="bg-[#F4F3EE]">
+    <div className="bg-white">
       <Suspense fallback={<div className="mx-auto max-w-7xl px-6 py-12">Loading...</div>}>
         <ContactForm />
       </Suspense>

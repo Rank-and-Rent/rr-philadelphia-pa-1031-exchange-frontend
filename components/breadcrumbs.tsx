@@ -15,20 +15,20 @@ export function Breadcrumbs({ items }: BreadcrumbsProps) {
   }
 
   return (
-    <nav aria-label="Breadcrumb" className="text-xs text-[#3F3F3F]">
-      <ol className="flex flex-wrap items-center gap-1">
+    <nav aria-label="Breadcrumb" className="text-xs uppercase tracking-[0.1em] text-[#5D5838]/60">
+      <ol className="flex flex-wrap items-center gap-2">
         {items.map((item, index) => {
           const isLast = index === items.length - 1;
           return (
-            <li key={`${item.label}-${index}`} className="flex items-center gap-1">
+            <li key={`${item.label}-${index}`} className="flex items-center gap-2">
               {item.href && !isLast ? (
-                <Link className="underline underline-offset-4" href={item.href}>
+                <Link className="transition-colors hover:text-[#5D5838]" href={item.href}>
                   {item.label}
                 </Link>
               ) : (
-                <span className="text-heading">{item.label}</span>
+                <span className="text-[#5D5838]">{item.label}</span>
               )}
-              {!isLast ? <span aria-hidden>›</span> : null}
+              {!isLast ? <span aria-hidden>/</span> : null}
             </li>
           );
         })}
@@ -36,4 +36,3 @@ export function Breadcrumbs({ items }: BreadcrumbsProps) {
     </nav>
   );
 }
-

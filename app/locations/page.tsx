@@ -17,7 +17,8 @@ export const metadata: Metadata = {
 export default function LocationsPage() {
   return (
     <>
-      <section className="bg-[#F4F3EE] py-16">
+      {/* Hero Section */}
+      <section className="bg-[#5D5838] py-20 text-white">
         <div className="container space-y-6">
           <Breadcrumbs
             items={[
@@ -26,21 +27,24 @@ export default function LocationsPage() {
             ]}
           />
           <div className="max-w-3xl space-y-4">
-            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-primary">Service Areas</p>
-            <h1 className="text-4xl font-semibold text-heading">
-              Serving {PRIMARY_CITY} and {PRIMARY_STATE_ABBR}.
+            <p className="text-xs font-medium uppercase tracking-[0.2em] text-white/60">Service Areas</p>
+            <h1 className="text-4xl font-normal tracking-wide sm:text-5xl">
+              SERVING {PRIMARY_CITY.toUpperCase()} AND {PRIMARY_STATE_ABBR}
             </h1>
-            <p className="text-lg text-[#3F3F3F]">
+            <p className="text-base leading-relaxed text-white/80">
               Our advisors coordinate exchanges across neighborhoods, suburbs, and business districts within Greater Philadelphia, supporting investors who require local compliance and cross market execution.
             </p>
           </div>
         </div>
       </section>
-      <section className="container space-y-16 py-16">
-        <LocationsBrowser locations={locations} />
-        <CTASection />
+
+      {/* Main Content */}
+      <section className="bg-white py-20">
+        <div className="container space-y-20">
+          <LocationsBrowser locations={locations} />
+          <CTASection />
+        </div>
       </section>
     </>
   );
 }
-

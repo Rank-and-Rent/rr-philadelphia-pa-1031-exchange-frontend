@@ -13,30 +13,31 @@ export function CTASection({ serviceName, locationName, variant = "default" }: C
 
   if (variant === "dark") {
     return (
-      <section className="bg-[#14213D] py-20 text-[#F9F9F8]">
+      <section className="bg-[#5D5838] py-20 text-white">
         <div className="container mx-auto max-w-4xl px-6 sm:px-8">
           <div className="text-center space-y-6">
-            <h2 className="text-3xl font-semibold text-white sm:text-4xl">
-              Ready to start your 1031 exchange?
+            <p className="text-xs font-medium uppercase tracking-[0.2em] text-white/60">Get Started</p>
+            <h2 className="text-3xl font-normal tracking-wide sm:text-4xl">
+              READY TO START YOUR 1031 EXCHANGE?
             </h2>
-            <p className="text-lg leading-relaxed text-[#E8E9ED]">
+            <p className="text-base leading-relaxed text-white/80">
               Connect with a Philadelphia exchange advisor to discuss your replacement property goals and timeline.
             </p>
             <div className="flex flex-col gap-4 sm:flex-row sm:justify-center">
               <Link
                 href={contactHref}
-                className="inline-flex items-center justify-center rounded-full bg-[#B68F40] px-8 py-3 text-base font-semibold text-[#F9F9F8] transition-colors hover:bg-[#8A6B2F] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#F9F9F8]"
+                className="inline-flex items-center justify-center border border-white px-8 py-3 text-xs font-medium uppercase tracking-[0.15em] text-white transition-colors hover:bg-white hover:text-[#5D5838]"
               >
                 Contact Advisor
               </Link>
               <a
                 href={`tel:${PHONE_E164}`}
-                className="inline-flex items-center justify-center rounded-full border border-[#F0E8D8] px-8 py-3 text-base font-semibold text-[#F9F9F8] transition-colors hover:border-transparent hover:bg-[#F0E8D8] hover:text-[#14213D] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#F9F9F8]"
+                className="inline-flex items-center justify-center bg-white px-8 py-3 text-xs font-medium uppercase tracking-[0.15em] text-[#5D5838] transition-colors hover:bg-white/90"
               >
                 Call {PHONE_DISPLAY}
               </a>
             </div>
-            <p className="text-xs text-[#E8E9ED]">
+            <p className="text-xs text-white/60">
               Educational content only. Not tax or legal advice.
             </p>
           </div>
@@ -46,25 +47,26 @@ export function CTASection({ serviceName, locationName, variant = "default" }: C
   }
 
   return (
-    <section className="bg-[#F4F3EE] py-20">
+    <section className="py-20">
       <div className="container mx-auto max-w-4xl px-6 sm:px-8">
-        <div className="rounded-3xl border border-[#D8D2C4] bg-white p-8 shadow-sm text-center space-y-6">
-          <h2 className="text-3xl font-semibold text-[#14213D] sm:text-4xl">
-            Ready to start your 1031 exchange?
+        <div className="border border-[#5D5838]/20 bg-white p-10 text-center space-y-6">
+          <p className="text-xs font-medium uppercase tracking-[0.2em] text-[#5D5838]">Get Started</p>
+          <h2 className="text-3xl font-normal tracking-wide text-[#5D5838] sm:text-4xl">
+            READY TO START YOUR 1031 EXCHANGE?
           </h2>
-          <p className="text-lg leading-relaxed text-[#353535]">
+          <p className="text-base leading-relaxed text-[#3F3F3F]">
             Connect with a Philadelphia exchange advisor to discuss your replacement property goals and timeline.
           </p>
           <div className="flex flex-col gap-4 sm:flex-row sm:justify-center">
             <Link
               href={contactHref}
-              className="inline-flex items-center justify-center rounded-full bg-[#B68F40] px-8 py-3 text-base font-semibold text-[#F9F9F8] transition-colors hover:bg-[#8A6B2F] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#14213D]"
+              className="inline-flex items-center justify-center bg-[#5D5838] px-8 py-3 text-xs font-medium uppercase tracking-[0.15em] text-white transition-colors hover:bg-[#454326]"
             >
               Contact Advisor
             </Link>
             <a
               href={`tel:${PHONE_E164}`}
-              className="inline-flex items-center justify-center rounded-full border border-[#14213D] px-8 py-3 text-base font-semibold text-[#14213D] transition-colors hover:bg-[#14213D] hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#14213D]"
+              className="inline-flex items-center justify-center border border-[#5D5838] px-8 py-3 text-xs font-medium uppercase tracking-[0.15em] text-[#5D5838] transition-colors hover:bg-[#5D5838] hover:text-white"
             >
               Call {PHONE_DISPLAY}
             </a>
@@ -77,4 +79,3 @@ export function CTASection({ serviceName, locationName, variant = "default" }: C
     </section>
   );
 }
-

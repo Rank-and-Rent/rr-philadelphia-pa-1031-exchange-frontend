@@ -39,7 +39,8 @@ export const metadata: Metadata = {
 export default function ServicesPage() {
   return (
     <>
-      <section className="bg-[#F4F3EE] py-16">
+      {/* Hero Section */}
+      <section className="bg-[#5D5838] py-20 text-white">
         <div className="container space-y-6">
           <Breadcrumbs
             items={[
@@ -48,39 +49,55 @@ export default function ServicesPage() {
             ]}
           />
           <div className="max-w-3xl space-y-4">
-            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-primary">Service Catalogue</p>
-            <h1 className="text-4xl font-semibold text-heading">Exchange Services in {PRIMARY_CITY}, {PRIMARY_STATE_ABBR}.</h1>
-            <p className="text-lg text-[#3F3F3F]">
+            <p className="text-xs font-medium uppercase tracking-[0.2em] text-white/60">Service Catalogue</p>
+            <h1 className="text-4xl font-normal tracking-wide sm:text-5xl">EXCHANGE SERVICES IN {PRIMARY_CITY.toUpperCase()}, {PRIMARY_STATE_ABBR}</h1>
+            <p className="text-base leading-relaxed text-white/80">
               Select from replacement property sourcing, underwriting, compliance, and timeline management programs built for investors completing Section 1031 exchanges in {PRIMARY_CITY}, {PRIMARY_STATE_ABBR}.
             </p>
           </div>
         </div>
       </section>
-      <section className="container space-y-16 py-16">
-        <ServicesBrowser services={services} />
-        <div className="grid gap-8 lg:grid-cols-[1.1fr,1fr]">
-          <IdentificationRulesExplainer />
-          <DeadlineCalculator />
-        </div>
-        <TimelineTracker />
-        <section className="rounded-3xl border border-outline/15 bg-white p-6 shadow-sm">
-          <h2 className="text-2xl font-semibold text-heading">Common questions.</h2>
-          <div className="mt-4 space-y-4">
-            {faqItems.map((item) => (
-              <details key={item.question} className="rounded-2xl border border-outline/15 bg-panel p-4">
-                <summary className="cursor-pointer text-sm font-semibold text-heading">{item.question}</summary>
-                <p className="mt-2 text-sm text-[#3F3F3F]">{item.answer}</p>
-              </details>
-            ))}
+
+      {/* Main Content */}
+      <section className="bg-white py-20">
+        <div className="container space-y-20">
+          <ServicesBrowser services={services} />
+          
+          <div className="grid gap-8 lg:grid-cols-[1.1fr,1fr]">
+            <IdentificationRulesExplainer />
+            <DeadlineCalculator />
           </div>
-          <script
-            type="application/ld+json"
-            dangerouslySetInnerHTML={{ __html: JSON.stringify(faqPageSchema(faqItems)) }}
-          />
-        </section>
-        <CTASection />
+          
+          <TimelineTracker />
+          
+          {/* FAQ Section */}
+          <section className="border border-[#5D5838]/10 p-8">
+            <p className="text-xs font-medium uppercase tracking-[0.15em] text-[#5D5838]">Common Questions</p>
+            <h2 className="mt-3 text-2xl font-normal tracking-wide text-[#5D5838]">FREQUENTLY ASKED QUESTIONS</h2>
+            <div className="mt-8 space-y-0 divide-y divide-[#5D5838]/10">
+              {faqItems.map((item) => (
+                <details key={item.question} className="group py-6">
+                  <summary className="flex cursor-pointer items-center justify-between text-base font-medium text-[#5D5838]">
+                    {item.question}
+                    <span className="ml-4 flex-shrink-0 text-[#5D5838] transition-transform duration-200 group-open:rotate-45">
+                      <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.5">
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+                      </svg>
+                    </span>
+                  </summary>
+                  <p className="mt-4 text-sm leading-relaxed text-[#3F3F3F]">{item.answer}</p>
+                </details>
+              ))}
+            </div>
+            <script
+              type="application/ld+json"
+              dangerouslySetInnerHTML={{ __html: JSON.stringify(faqPageSchema(faqItems)) }}
+            />
+          </section>
+          
+          <CTASection />
+        </div>
       </section>
     </>
   );
 }
-

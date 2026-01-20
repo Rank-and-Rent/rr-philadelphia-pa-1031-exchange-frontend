@@ -33,10 +33,9 @@ export function LocationsBrowser({ locations }: LocationsBrowserProps) {
         onSearch={(value) => setQuery(value)}
       />
       {hasResults ? (
-        <div className="grid gap-6 md:grid-cols-2">
+        <div className="grid gap-1 md:grid-cols-2 lg:grid-cols-3">
           {filtered.map((location) => {
             const imageBasePath = getLocationImageBasePath(location.slug);
-            // Try common extensions - webp, jpg, avif
             const imagePaths = imageBasePath ? [
               `${imageBasePath}.webp`,
               `${imageBasePath}.jpg`,
@@ -45,15 +44,19 @@ export function LocationsBrowser({ locations }: LocationsBrowserProps) {
               `${imageBasePath}.png`,
             ] : [];
             return (
-              <article key={location.slug} className="group overflow-hidden rounded-3xl border border-outline/15 bg-white shadow-sm transition-shadow hover:shadow-lg">
+              <Link
+                key={location.slug}
+                href={`/locations/${location.slug}`}
+                className="group overflow-hidden bg-white text-center"
+              >
                 {imageBasePath && (
-                  <div className="relative h-48 w-full overflow-hidden">
+                  <div className="relative aspect-[4/3] w-full overflow-hidden">
                     <Image
                       src={imagePaths[0]}
                       alt={location.name}
                       fill
-                      className="object-cover transition-transform duration-300 group-hover:scale-105"
-                      sizes="(max-width: 768px) 100vw, 50vw"
+                      className="object-cover transition-transform duration-500 group-hover:scale-110"
+                      sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
                       onError={(e) => {
                         const target = e.target as HTMLImageElement;
                         const currentSrc = target.src;
@@ -68,40 +71,22 @@ export function LocationsBrowser({ locations }: LocationsBrowserProps) {
                     />
                   </div>
                 )}
-                <div className="p-6">
-                  <p className="text-xs font-semibold uppercase tracking-[0.18em] text-primary">Service area</p>
-                  <h3 className="mt-2 text-xl font-semibold text-heading">{location.name}</h3>
-                  <p className="mt-3 text-sm text-[#3F3F3F]">{location.shortDescription}</p>
-                  <ul className="mt-4 space-y-2 text-sm text-[#3F3F3F]">
-                    {location.highlights.slice(0, 3).map((highlight) => (
-                      <li key={highlight}>• {highlight}</li>
-                    ))}
-                  </ul>
-                  <div className="mt-4 flex items-center justify-between text-sm font-semibold text-primary">
-                    <Link href={`/locations/${location.slug}`} className="underline underline-offset-4">
-                      View location
-                    </Link>
-                    <Link
-                      href={`/contact?projectType=${buildPrefillQuery(location.name)}#contact-form`}
-                      className="underline underline-offset-4"
-                    >
-                      Contact advisor
-                    </Link>
-                  </div>
+                <div className="py-4">
+                  <h3 className="text-sm font-medium uppercase tracking-[0.15em] text-[#5D5838]">{location.name}</h3>
                 </div>
-              </article>
+              </Link>
             );
           })}
         </div>
       ) : (
-        <div className="rounded-3xl border border-primary/20 bg-primary/5 p-6 text-sm text-[#1B1B1B]">
-          <p className="font-semibold text-heading">We can help with “{query}”.</p>
-          <p className="mt-2">
+        <div className="border border-[#5D5838]/20 bg-[#F8F7F4] p-8 text-sm text-[#1B1B1B]">
+          <p className="font-semibold text-[#5D5838]">We can help with &ldquo;{query}&rdquo;.</p>
+          <p className="mt-2 text-[#3F3F3F]">
             Provide the target jurisdiction and we will assign Pennsylvania counsel to confirm transfer tax and closing requirements.
           </p>
           <Link
             href={`/contact?projectType=${buildPrefillQuery(query || "Other")}#lead-form`}
-            className="mt-4 inline-flex rounded-full bg-primary px-5 py-2 text-sm font-semibold text-white transition-colors hover:bg-[#0f1c33]"
+            className="mt-6 inline-flex bg-[#5D5838] px-6 py-3 text-xs font-medium uppercase tracking-[0.1em] text-white transition-colors hover:bg-[#454326]"
           >
             Contact advisor
           </Link>
@@ -110,4 +95,3 @@ export function LocationsBrowser({ locations }: LocationsBrowserProps) {
     </div>
   );
 }
-

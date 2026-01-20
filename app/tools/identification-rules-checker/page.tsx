@@ -37,46 +37,55 @@ export default function IdentificationRulesCheckerPage() {
 
   return (
     <>
-      <section className="bg-[#F4F3EE] py-16">
+      {/* Hero Section */}
+      <section className="bg-[#5D5838] py-20 text-white">
         <div className="container space-y-6">
           <Breadcrumbs items={breadcrumbItems} />
           <div className="max-w-3xl space-y-4">
-            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-primary">Exchange Tools</p>
-            <h1 className="text-4xl font-semibold text-heading">Identification Rules Checker</h1>
-            <p className="text-lg text-[#3F3F3F]">
+            <p className="text-xs font-medium uppercase tracking-[0.2em] text-white/60">Exchange Tools</p>
+            <h1 className="text-4xl font-normal tracking-wide sm:text-5xl">IDENTIFICATION RULES CHECKER</h1>
+            <p className="text-base leading-relaxed text-white/80">
               Validate your replacement property identification against IRS requirements. You must satisfy either the three-property rule, the 200% rule, or the 95% exception. Use this tool to check compliance for exchanges in {PRIMARY_CITY}, {PRIMARY_STATE_ABBR}.
             </p>
           </div>
         </div>
       </section>
-      <section className="container space-y-16 bg-white py-16">
-        <IdentificationRulesChecker />
-        <div className="rounded-3xl border border-outline/15 bg-panel p-6">
-          <p className="text-sm text-[#3F3F3F]">
-            <strong>Educational content only.</strong> Not tax, legal, or investment advice. Results are estimates only. Consult a qualified intermediary and tax advisor before making decisions. Pennsylvania does not impose a state real estate transfer tax. Recording fees and title insurance premiums still apply.
-          </p>
-        </div>
-        <div className="border-t border-outline/15 pt-8">
-          <h2 className="text-2xl font-semibold text-heading mb-4">Related Resources</h2>
-          <ul className="space-y-2">
-            <li>
-              <Link href="/services/three-property-rule-strategy-philadelphia" className="text-primary underline underline-offset-4 hover:text-[#B68F40]">
-                Three Property Rule Strategy
-              </Link>
-            </li>
-            <li>
-              <Link href="/services/two-hundred-percent-strategy-philadelphia" className="text-primary underline underline-offset-4 hover:text-[#B68F40]">
-                Two Hundred Percent Strategy
-              </Link>
-            </li>
-            <li>
-              <Link href="/services/identification-schedule-planning" className="text-primary underline underline-offset-4 hover:text-[#B68F40]">
-                Identification Schedule Planning
-              </Link>
-            </li>
-          </ul>
+
+      {/* Main Content */}
+      <section className="bg-white py-20">
+        <div className="container space-y-16">
+          <IdentificationRulesChecker />
+          
+          <div className="border border-[#5D5838]/10 bg-[#F8F7F4] p-8">
+            <p className="text-sm text-[#3F3F3F]">
+              <strong className="text-[#5D5838]">Educational content only.</strong> Not tax, legal, or investment advice. Results are estimates only. Consult a qualified intermediary and tax advisor before making decisions. Pennsylvania does not impose a state real estate transfer tax. Recording fees and title insurance premiums still apply.
+            </p>
+          </div>
+          
+          <div className="border-t border-[#5D5838]/20 pt-8">
+            <p className="text-xs font-medium uppercase tracking-[0.15em] text-[#5D5838]">Learn More</p>
+            <h2 className="mt-3 text-2xl font-normal tracking-wide text-[#5D5838]">RELATED RESOURCES</h2>
+            <ul className="mt-6 space-y-3">
+              <li>
+                <Link href="/services/three-property-rule-strategy-philadelphia" className="text-sm text-[#5D5838] underline underline-offset-4 hover:text-[#7A7654]">
+                  Three Property Rule Strategy
+                </Link>
+              </li>
+              <li>
+                <Link href="/services/two-hundred-percent-strategy-philadelphia" className="text-sm text-[#5D5838] underline underline-offset-4 hover:text-[#7A7654]">
+                  Two Hundred Percent Strategy
+                </Link>
+              </li>
+              <li>
+                <Link href="/services/identification-schedule-planning" className="text-sm text-[#5D5838] underline underline-offset-4 hover:text-[#7A7654]">
+                  Identification Schedule Planning
+                </Link>
+              </li>
+            </ul>
+          </div>
         </div>
       </section>
+
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
@@ -101,4 +110,3 @@ export default function IdentificationRulesCheckerPage() {
     </>
   );
 }
-

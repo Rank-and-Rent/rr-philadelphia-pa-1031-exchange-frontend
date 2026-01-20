@@ -32,19 +32,19 @@ export function RelatedServicesPanel({ services }: RelatedServicesPanelProps) {
         onSearch={(value) => setQuery(value)}
       />
       {hasResults ? (
-        <div className="grid gap-6 md:grid-cols-2">
+        <div className="grid gap-px bg-[#5D5838]/10 md:grid-cols-2">
           {filtered.map((service) => (
-            <article key={service.slug} className="rounded-3xl border border-outline/15 bg-white p-5 shadow-sm">
-              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-primary">Related service</p>
-              <h4 className="mt-2 text-lg font-semibold text-heading">{service.name}</h4>
-              <p className="mt-2 text-sm text-[#3F3F3F]">{service.shortDescription}</p>
-              <div className="mt-4 flex items-center justify-between text-sm font-semibold text-primary">
-                <Link href={`/services/${service.slug}`} className="underline underline-offset-4">
+            <article key={service.slug} className="bg-white p-8">
+              <p className="text-xs font-medium uppercase tracking-[0.15em] text-[#5D5838]">Related service</p>
+              <h4 className="mt-3 text-lg font-semibold text-[#5D5838]">{service.name}</h4>
+              <p className="mt-3 text-sm leading-relaxed text-[#3F3F3F]">{service.shortDescription}</p>
+              <div className="mt-6 flex items-center justify-between text-xs font-medium uppercase tracking-[0.1em] text-[#5D5838]">
+                <Link href={`/services/${service.slug}`} className="underline underline-offset-4 hover:text-[#7A7654]">
                   View details
                 </Link>
                 <Link
                   href={`/contact?projectType=${buildPrefillQuery(service.name)}#lead-form`}
-                  className="underline underline-offset-4"
+                  className="underline underline-offset-4 hover:text-[#7A7654]"
                 >
                   Prefill contact
                 </Link>
@@ -53,14 +53,14 @@ export function RelatedServicesPanel({ services }: RelatedServicesPanelProps) {
           ))}
         </div>
       ) : (
-        <div className="rounded-3xl border border-primary/20 bg-primary/5 p-6 text-sm text-[#1B1B1B]">
-          <p className="font-semibold text-heading">We can help with “{query}”.</p>
-          <p className="mt-2">
+        <div className="border border-[#5D5838]/20 bg-[#F8F7F4] p-8 text-sm text-[#1B1B1B]">
+          <p className="font-semibold text-[#5D5838]">We can help with &ldquo;{query}&rdquo;.</p>
+          <p className="mt-2 text-[#3F3F3F]">
             Submit your request and we will assign a specialist to source or underwrite this requirement.
           </p>
           <Link
             href={`/contact?projectType=${buildPrefillQuery(query)}#lead-form`}
-            className="mt-4 inline-flex rounded-full bg-primary px-5 py-2 text-sm font-semibold text-white transition-colors hover:bg-[#0f1c33]"
+            className="mt-6 inline-flex bg-[#5D5838] px-6 py-3 text-xs font-medium uppercase tracking-[0.1em] text-white transition-colors hover:bg-[#454326]"
           >
             Contact advisor
           </Link>
@@ -69,4 +69,3 @@ export function RelatedServicesPanel({ services }: RelatedServicesPanelProps) {
     </div>
   );
 }
-

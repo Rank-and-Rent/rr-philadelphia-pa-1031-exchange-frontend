@@ -42,17 +42,17 @@ export function HomeServiceGrid({ featuredSlugs, services, featuredCards }: Home
       />
       {query ? (
         hasResults ? (
-          <div className="grid gap-6 md:grid-cols-2">
+          <div className="grid gap-px bg-[#5D5838]/10 md:grid-cols-2">
             {filtered.map((service) => (
-              <article key={service.slug} className="rounded-3xl border border-outline/15 bg-white p-6 shadow-sm">
-                <p className="text-xs font-semibold uppercase tracking-[0.18em] text-primary">Service</p>
-                <h3 className="mt-2 text-xl font-semibold text-heading">{service.name}</h3>
-                <p className="mt-3 text-sm text-[#3F3F3F]">{service.shortDescription}</p>
-                <div className="mt-4 flex items-center justify-between text-sm font-semibold text-primary">
-                  <Link href={`/services/${service.slug}`} className="underline underline-offset-4">
+              <article key={service.slug} className="bg-white p-8">
+                <p className="text-xs font-medium uppercase tracking-[0.15em] text-[#5D5838]">Service</p>
+                <h3 className="mt-3 text-lg font-semibold text-[#5D5838]">{service.name}</h3>
+                <p className="mt-3 text-sm leading-relaxed text-[#3F3F3F]">{service.shortDescription}</p>
+                <div className="mt-6 flex items-center justify-between text-xs font-medium uppercase tracking-[0.1em] text-[#5D5838]">
+                  <Link href={`/services/${service.slug}`} className="underline underline-offset-4 hover:text-[#7A7654]">
                     Learn more
                   </Link>
-                  <Link href={`/contact?projectType=${buildPrefillQuery(service.name)}#lead-form`} className="underline underline-offset-4">
+                  <Link href={`/contact?projectType=${buildPrefillQuery(service.name)}#lead-form`} className="underline underline-offset-4 hover:text-[#7A7654]">
                     Prefill contact
                   </Link>
                 </div>
@@ -60,31 +60,31 @@ export function HomeServiceGrid({ featuredSlugs, services, featuredCards }: Home
             ))}
           </div>
         ) : (
-          <div className="rounded-3xl border border-primary/20 bg-primary/5 p-6 text-sm text-[#1B1B1B]">
-            <p className="font-semibold text-heading">We can help with “{query}”.</p>
-            <p className="mt-2">
+          <div className="border border-[#5D5838]/20 bg-[#F8F7F4] p-8 text-sm text-[#1B1B1B]">
+            <p className="font-semibold text-[#5D5838]">We can help with &ldquo;{query}&rdquo;.</p>
+            <p className="mt-2 text-[#3F3F3F]">
               Share your requirement and we will assemble a tailored service path for your exchange.
             </p>
             <Link
               href={`/contact?projectType=${buildPrefillQuery(query || "Exchange support")}#lead-form`}
-              className="mt-4 inline-flex rounded-full bg-primary px-5 py-2 text-sm font-semibold text-white transition-colors hover:bg-[#0f1c33]"
+              className="mt-6 inline-flex bg-[#5D5838] px-6 py-3 text-xs font-medium uppercase tracking-[0.1em] text-white transition-colors hover:bg-[#454326]"
             >
               Contact advisor
             </Link>
           </div>
         )
       ) : (
-        <div className="grid gap-6 md:grid-cols-2">
+        <div className="grid gap-px bg-[#5D5838]/10 md:grid-cols-2">
           {featuredCards.map((card) => (
-            <article key={card.slug} className="rounded-3xl border border-outline/15 bg-white p-6 shadow-sm">
-              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-primary">Service</p>
-              <h3 className="mt-2 text-xl font-semibold text-heading">{card.title}</h3>
-              <p className="mt-3 text-sm text-[#3F3F3F]">{card.description}</p>
-              <div className="mt-4 flex items-center justify-between text-sm font-semibold text-primary">
-                <Link href={`/services/${card.slug}`} className="underline underline-offset-4">
+            <article key={card.slug} className="bg-white p-8">
+              <p className="text-xs font-medium uppercase tracking-[0.15em] text-[#5D5838]">Service</p>
+              <h3 className="mt-3 text-lg font-semibold text-[#5D5838]">{card.title}</h3>
+              <p className="mt-3 text-sm leading-relaxed text-[#3F3F3F]">{card.description}</p>
+              <div className="mt-6 flex items-center justify-between text-xs font-medium uppercase tracking-[0.1em] text-[#5D5838]">
+                <Link href={`/services/${card.slug}`} className="underline underline-offset-4 hover:text-[#7A7654]">
                   Learn more
                 </Link>
-                <Link href={`/contact?projectType=${buildPrefillQuery(card.title)}#lead-form`} className="underline underline-offset-4">
+                <Link href={`/contact?projectType=${buildPrefillQuery(card.title)}#lead-form`} className="underline underline-offset-4 hover:text-[#7A7654]">
                   Prefill contact
                 </Link>
               </div>
@@ -95,4 +95,3 @@ export function HomeServiceGrid({ featuredSlugs, services, featuredCards }: Home
     </div>
   );
 }
-

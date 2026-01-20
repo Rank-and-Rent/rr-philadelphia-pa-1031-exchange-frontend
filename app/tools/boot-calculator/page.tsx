@@ -37,46 +37,55 @@ export default function BootCalculatorPage() {
 
   return (
     <>
-      <section className="bg-[#F4F3EE] py-16">
+      {/* Hero Section */}
+      <section className="bg-[#5D5838] py-20 text-white">
         <div className="container space-y-6">
           <Breadcrumbs items={breadcrumbItems} />
           <div className="max-w-3xl space-y-4">
-            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-primary">Exchange Tools</p>
-            <h1 className="text-4xl font-semibold text-heading">Boot Calculator</h1>
-            <p className="text-lg text-[#3F3F3F]">
+            <p className="text-xs font-medium uppercase tracking-[0.2em] text-white/60">Exchange Tools</p>
+            <h1 className="text-4xl font-normal tracking-wide sm:text-5xl">BOOT CALCULATOR</h1>
+            <p className="text-base leading-relaxed text-white/80">
               Calculate boot received during a 1031 exchange. Boot includes cash received and mortgage relief, and is subject to immediate taxation. Use this calculator to estimate boot and potential tax implications for exchanges in {PRIMARY_CITY}, {PRIMARY_STATE_ABBR}.
             </p>
           </div>
         </div>
       </section>
-      <section className="container space-y-16 bg-white py-16">
-        <BootCalculator />
-        <div className="rounded-3xl border border-outline/15 bg-panel p-6">
-          <p className="text-sm text-[#3F3F3F]">
-            <strong>Educational content only.</strong> Not tax, legal, or investment advice. Results are estimates only. Consult a qualified intermediary and tax advisor before making decisions. Pennsylvania does not impose a state real estate transfer tax. Recording fees and title insurance premiums still apply.
-          </p>
-        </div>
-        <div className="border-t border-outline/15 pt-8">
-          <h2 className="text-2xl font-semibold text-heading mb-4">Related Resources</h2>
-          <ul className="space-y-2">
-            <li>
-              <Link href="/services/boot-minimization-strategy" className="text-primary underline underline-offset-4 hover:text-[#B68F40]">
-                Boot Minimization Strategy Services
-              </Link>
-            </li>
-            <li>
-              <Link href="/services/taxpayer-risk-assessment" className="text-primary underline underline-offset-4 hover:text-[#B68F40]">
-                Taxpayer Risk Assessment
-              </Link>
-            </li>
-            <li>
-              <Link href="/about" className="text-primary underline underline-offset-4 hover:text-[#B68F40]">
-                About Our Exchange Advisory Services
-              </Link>
-            </li>
-          </ul>
+
+      {/* Main Content */}
+      <section className="bg-white py-20">
+        <div className="container space-y-16">
+          <BootCalculator />
+          
+          <div className="border border-[#5D5838]/10 bg-[#F8F7F4] p-8">
+            <p className="text-sm text-[#3F3F3F]">
+              <strong className="text-[#5D5838]">Educational content only.</strong> Not tax, legal, or investment advice. Results are estimates only. Consult a qualified intermediary and tax advisor before making decisions. Pennsylvania does not impose a state real estate transfer tax. Recording fees and title insurance premiums still apply.
+            </p>
+          </div>
+          
+          <div className="border-t border-[#5D5838]/20 pt-8">
+            <p className="text-xs font-medium uppercase tracking-[0.15em] text-[#5D5838]">Learn More</p>
+            <h2 className="mt-3 text-2xl font-normal tracking-wide text-[#5D5838]">RELATED RESOURCES</h2>
+            <ul className="mt-6 space-y-3">
+              <li>
+                <Link href="/services/boot-minimization-strategy" className="text-sm text-[#5D5838] underline underline-offset-4 hover:text-[#7A7654]">
+                  Boot Minimization Strategy Services
+                </Link>
+              </li>
+              <li>
+                <Link href="/services/taxpayer-risk-assessment" className="text-sm text-[#5D5838] underline underline-offset-4 hover:text-[#7A7654]">
+                  Taxpayer Risk Assessment
+                </Link>
+              </li>
+              <li>
+                <Link href="/about" className="text-sm text-[#5D5838] underline underline-offset-4 hover:text-[#7A7654]">
+                  About Our Exchange Advisory Services
+                </Link>
+              </li>
+            </ul>
+          </div>
         </div>
       </section>
+
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
@@ -101,4 +110,3 @@ export default function BootCalculatorPage() {
     </>
   );
 }
-
