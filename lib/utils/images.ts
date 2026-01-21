@@ -5,7 +5,7 @@
 import fs from 'fs';
 import path from 'path';
 
-const IMAGE_EXTENSIONS = ['.webp', '.avif', '.jpg', '.jpeg', '.png'];
+const IMAGE_EXTENSIONS = ['.jpg', '.avif', '.webp', '.jpeg', '.png'];
 
 /**
  * Find the actual image file that exists for a given base path

@@ -58,7 +58,7 @@ export function HomeLocationGrid({ featuredSlugs, locations, featuredCards }: Ho
                   {imageBasePath && (
                     <div className="relative aspect-[4/3] w-full overflow-hidden">
                       <Image
-                        src={`${imageBasePath}.webp`}
+                        src={`${imageBasePath}.jpg`}
                         alt={location.name}
                         fill
                         className="object-cover transition-transform duration-500 group-hover:scale-110"
@@ -67,7 +67,7 @@ export function HomeLocationGrid({ featuredSlugs, locations, featuredCards }: Ho
                           const target = e.target as HTMLImageElement;
                           const currentSrc = target.src;
                           const basePath = currentSrc.replace(/\.(webp|avif|jpg|jpeg|png)$/, '');
-                          const extensions = ['.jpg', '.avif', '.jpeg', '.png'];
+                          const extensions = ['.jpg', '.avif', '.webp', '.jpeg', '.png'];
                           const currentExt = currentSrc.match(/\.(webp|avif|jpg|jpeg|png)$/)?.[0];
                           const currentIndex = extensions.indexOf(currentExt || '');
                           if (currentIndex < extensions.length - 1) {
@@ -122,7 +122,7 @@ export function HomeLocationGrid({ featuredSlugs, locations, featuredCards }: Ho
                 {imageBasePath && (
                   <div className="relative aspect-[4/3] w-full overflow-hidden">
                     <Image
-                      src={`${imageBasePath}.webp`}
+                      src={`${imageBasePath}.jpg`}
                       alt={location.name}
                       fill
                       className="object-cover transition-transform duration-500 group-hover:scale-110"
@@ -131,7 +131,7 @@ export function HomeLocationGrid({ featuredSlugs, locations, featuredCards }: Ho
                         const target = e.target as HTMLImageElement;
                         const currentSrc = target.src;
                         const basePath = currentSrc.replace(/\.(webp|avif|jpg|jpeg|png)$/, '');
-                        const extensions = ['.jpg', '.avif', '.jpeg', '.png'];
+                        const extensions = ['.jpg', '.avif', '.webp', '.jpeg', '.png'];
                         const currentExt = currentSrc.match(/\.(webp|avif|jpg|jpeg|png)$/)?.[0];
                         const currentIndex = extensions.indexOf(currentExt || '');
                         if (currentIndex < extensions.length - 1) {

@@ -37,9 +37,9 @@ export function LocationsBrowser({ locations }: LocationsBrowserProps) {
           {filtered.map((location) => {
             const imageBasePath = getLocationImageBasePath(location.slug);
             const imagePaths = imageBasePath ? [
-              `${imageBasePath}.webp`,
               `${imageBasePath}.jpg`,
               `${imageBasePath}.avif`,
+              `${imageBasePath}.webp`,
               `${imageBasePath}.jpeg`,
               `${imageBasePath}.png`,
             ] : [];
@@ -61,7 +61,7 @@ export function LocationsBrowser({ locations }: LocationsBrowserProps) {
                         const target = e.target as HTMLImageElement;
                         const currentSrc = target.src;
                         const basePath = currentSrc.replace(/\.(webp|avif|jpg|jpeg|png)$/, '');
-                        const extensions = ['.jpg', '.avif', '.jpeg', '.png'];
+                        const extensions = ['.jpg', '.avif', '.webp', '.jpeg', '.png'];
                         const currentExt = currentSrc.match(/\.(webp|avif|jpg|jpeg|png)$/)?.[0];
                         const currentIndex = extensions.indexOf(currentExt || '');
                         if (currentIndex < extensions.length - 1) {
